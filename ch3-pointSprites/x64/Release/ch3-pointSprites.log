@@ -1,0 +1,9 @@
+﻿  common.cpp
+common.cpp(13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(218) : see declaration of 'fopen'
+common.cpp(22): warning C4267: '=' : conversion from 'size_t' to 'int', possible loss of data
+  pointSprites.cpp
+pointSprites.cpp(110): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(218) : see declaration of 'fopen'
+  targa.h
+LINK : fatal error LNK1104: cannot open file 'freeglut.lib'
