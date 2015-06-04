@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter01", "Chapter01", "{1FDE2565-C602-421C-83FD-90F121727991}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ch01-01-Triangle", "src\Chapter01\ch01-01-Triangle\ch01-01-Triangle.vcxproj", "{A3A5EA75-1B4E-4149-8DFF-90D8A28A10FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter02", "Chapter02", "{A6BAF9F3-A66D-458B-932A-6EBC47017FD4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter03", "Chapter03", "{38F4FAE1-1B93-4115-ACD5-CCB6456FBB39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter04", "Chapter04", "{1C1904AA-2634-402E-B980-A7CA320FC995}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter05", "Chapter05", "{7FEC8A29-BDB6-472F-A158-A27AD792D9C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter06", "Chapter06", "{16FE7ABD-679E-4F87-8141-CFC15CB6F8AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter07", "Chapter07", "{E43A1512-1956-4BCF-ABFC-F318F93BB80F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter08", "Chapter08", "{7CA79CA4-A512-4632-94D1-FC63360B460C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter09", "Chapter09", "{613E700C-F00C-482F-AEA8-88746C34A025}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter10", "Chapter10", "{053D3676-878C-49FC-BE07-5EE4E0D75F81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter11", "Chapter11", "{E3A239D6-73C7-45AF-8BF3-424B5D377AC0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ch03-01-BufferSubData", "src\Chapter03\ch03-01-BufferSubData\ch03-01-BufferSubData.vcxproj", "{3C574CD2-9D2C-423A-9644-FEF1EA78BAB9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ch03-02-IndexDraw", "src\Chapter03\ch03-02-IndexDraw\ch03-02-IndexDraw.vcxproj", "{784FAF48-D6BC-40ED-A41E-8788AD4310B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3A5EA75-1B4E-4149-8DFF-90D8A28A10FB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A3A5EA75-1B4E-4149-8DFF-90D8A28A10FB}.Debug|Win32.Build.0 = Debug|Win32
+		{A3A5EA75-1B4E-4149-8DFF-90D8A28A10FB}.Release|Win32.ActiveCfg = Release|Win32
+		{A3A5EA75-1B4E-4149-8DFF-90D8A28A10FB}.Release|Win32.Build.0 = Release|Win32
+		{3C574CD2-9D2C-423A-9644-FEF1EA78BAB9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3C574CD2-9D2C-423A-9644-FEF1EA78BAB9}.Debug|Win32.Build.0 = Debug|Win32
+		{3C574CD2-9D2C-423A-9644-FEF1EA78BAB9}.Release|Win32.ActiveCfg = Release|Win32
+		{3C574CD2-9D2C-423A-9644-FEF1EA78BAB9}.Release|Win32.Build.0 = Release|Win32
+		{784FAF48-D6BC-40ED-A41E-8788AD4310B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{784FAF48-D6BC-40ED-A41E-8788AD4310B3}.Debug|Win32.Build.0 = Debug|Win32
+		{784FAF48-D6BC-40ED-A41E-8788AD4310B3}.Release|Win32.ActiveCfg = Release|Win32
+		{784FAF48-D6BC-40ED-A41E-8788AD4310B3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A3A5EA75-1B4E-4149-8DFF-90D8A28A10FB} = {1FDE2565-C602-421C-83FD-90F121727991}
+		{3C574CD2-9D2C-423A-9644-FEF1EA78BAB9} = {38F4FAE1-1B93-4115-ACD5-CCB6456FBB39}
+		{784FAF48-D6BC-40ED-A41E-8788AD4310B3} = {38F4FAE1-1B93-4115-ACD5-CCB6456FBB39}
+	EndGlobalSection
+EndGlobal
