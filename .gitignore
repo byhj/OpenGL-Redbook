@@ -28,6 +28,10 @@ $RECYCLE.BIN/
 *.lastbuildstate
 *.ktx
 *.sbm
+*.vbm
+*.dds
+*.bmp
+*.png
 
 # =========================
 # Operating System Files
