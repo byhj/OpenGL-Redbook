@@ -9,10 +9,10 @@
 #include <common/shader.h>
 #include <common/loadTexture.h>
 
-#define POINT_COUNT 4
+#define POINT_COUNT 200
 
 
-const int Width = 800, Height = 640; 
+const int Width = 1000, Height = 800; 
 float aspect;
 GLuint render_prog;
 GLuint vao[1];
@@ -109,7 +109,6 @@ void display(void)
 	glBindVertexArray(vao[0]);
 
 
-
     // Set up the model and projection matrix
     glm::mat4 proj(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 8.0f));
 	glm::mat4 view = glm::lookAt(glm::vec3(0.0, 0.0, 5.0), glm::vec3(0.0, 0.0, 0.0),
@@ -119,7 +118,7 @@ void display(void)
 	glUniformMatrix4fv(proj_loc, 1, GL_FALSE, glm::value_ptr(proj));
 
     glEnable(GL_BLEND); //¿ªÆô»ìºÏ
-    glBlendFunc(GL_SRC_ALPHA, GL_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Draw Arrays...
     glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, -2.0f)) 
