@@ -19,6 +19,7 @@ GLint  proj_loc, view_loc;
 VBObject object;
 Shader instanceShader("instance Shader");
 GLuint color_tbo_loc,  model_tbo_loc;
+GLuint color_texture, model_texture;
 
 void init_shader()
 {
@@ -27,8 +28,10 @@ void init_shader()
 	instanceShader.attach(GL_FRAGMENT_SHADER, "instance.frag");
 	instanceShader.link();
 	instanceShader.interfaceInfo();
+	instanceShader.use();
 
 	program = instanceShader.GetProgram(); 
+
 	//uniform Index
 	view_loc = glGetUniformLocation(program, "view");
 	proj_loc= glGetUniformLocation(program, "proj");
@@ -40,11 +43,11 @@ void init_shader()
 	//Set unform to Texturei. i is the value
 	glUniform1i(color_tbo_loc, 0); 
 	glUniform1i(model_tbo_loc, 1);
+
 }
 
 void init_buffer()
 {
-
 	object.LoadFromVBM("../../../media/objects/armadillo_low.vbm", 0, 1, 2);
 	object.BindVertexArray();
 
@@ -60,21 +63,28 @@ void init_buffer()
 		colors[n][3] = 1.0f;
 	}
 
-	//You should active texture before glbufferData???
+	//Notice the set color_tbo to gl_texture_buffer layer 0, your should use texture to change it
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_BUFFER, 0);
-	glGenTextures(1, &color_tbo);
-	glBindTexture(GL_TEXTURE_BUFFER, color_tbo);
+	glGenTextures(1, &color_texture);
+	glBindTexture(GL_TEXTURE_BUFFER, color_texture);
+
+	glGenBuffers(1, &color_tbo);
+	glBindBuffer(GL_TEXTURE_BUFFER, color_tbo);
 	glBufferData(GL_TEXTURE_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
 	glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, color_tbo);
-	glBindTexture(GL_TEXTURE_BUFFER, 0);
+
+	// Now do the same thing with a TBO for the model matrices. The buffer object
+	// (model_matrix_buffer) has been created and sized to store one mat4 per-
+	// instance.
 
 	glActiveTexture(GL_TEXTURE1);
+	glGenTextures(1, &model_texture);
+	glBindTexture(GL_TEXTURE_BUFFER, model_texture);
+
 	glGenBuffers(1, &model_tbo);
 	glBindBuffer(GL_TEXTURE_BUFFER, model_tbo);
 	glBufferData(GL_TEXTURE_BUFFER, INSTANCE_COUNT * sizeof(glm::mat4), NULL, GL_DYNAMIC_DRAW);
 	glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, model_tbo);
-	glBindTexture(GL_TEXTURE_BUFFER, 0);
 
 }
 
@@ -139,7 +149,6 @@ void display(void)
 	glm::mat4 view_matrix(glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, -1500.0f)) 
 		* glm::rotate(glm::mat4(1.0), t * 360.0f * 2.0f, glm::vec3(0.0f, 1.0f, 0.0f)) );
 	glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(view_matrix));
-
 
 	object.Render(0, INSTANCE_COUNT);	
 
