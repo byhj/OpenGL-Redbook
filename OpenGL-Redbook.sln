@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ch06-01-Texture-Data", "src
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ch06-02-Texture-Image", "src\Chapter06\ch06-02-Texture-Image\ch06-02-Texture-Image.vcxproj", "{8F7D83C2-A12D-40BF-A6A7-F8123AE0CF21}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ch06-03-Texture-Wrapping", "src\Chapter06\ch06-03-Texture-Wrapping\ch06-03-Texture-Wrapping.vcxproj", "{6F03E92D-FA2F-4E9E-92D6-428848A0A6D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -101,6 +103,10 @@ Global
 		{8F7D83C2-A12D-40BF-A6A7-F8123AE0CF21}.Debug|Win32.Build.0 = Debug|Win32
 		{8F7D83C2-A12D-40BF-A6A7-F8123AE0CF21}.Release|Win32.ActiveCfg = Release|Win32
 		{8F7D83C2-A12D-40BF-A6A7-F8123AE0CF21}.Release|Win32.Build.0 = Release|Win32
+		{6F03E92D-FA2F-4E9E-92D6-428848A0A6D6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6F03E92D-FA2F-4E9E-92D6-428848A0A6D6}.Debug|Win32.Build.0 = Debug|Win32
+		{6F03E92D-FA2F-4E9E-92D6-428848A0A6D6}.Release|Win32.ActiveCfg = Release|Win32
+		{6F03E92D-FA2F-4E9E-92D6-428848A0A6D6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,5 +124,6 @@ Global
 		{5DD2FCCD-9488-4AFA-90BB-AB31926BD9BF} = {7FEC8A29-BDB6-472F-A158-A27AD792D9C5}
 		{16E1A57C-3552-449F-8255-0A8031B264AF} = {16FE7ABD-679E-4F87-8141-CFC15CB6F8AD}
 		{8F7D83C2-A12D-40BF-A6A7-F8123AE0CF21} = {16FE7ABD-679E-4F87-8141-CFC15CB6F8AD}
+		{6F03E92D-FA2F-4E9E-92D6-428848A0A6D6} = {16FE7ABD-679E-4F87-8141-CFC15CB6F8AD}
 	EndGlobalSection
 EndGlobal
