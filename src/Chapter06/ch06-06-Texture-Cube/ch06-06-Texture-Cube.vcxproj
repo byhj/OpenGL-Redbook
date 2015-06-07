@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AC8C0F3D-3F88-488A-8AFC-40D82B2D40A5}</ProjectGuid>
-    <RootNamespace>ch0307PointSprites</RootNamespace>
+    <ProjectGuid>{2E1A6D6D-5F75-4057-8FA1-48617C1369F2}</ProjectGuid>
+    <RootNamespace>ch0606TextureCube</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,7 +47,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>DevIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>vermilion32_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -64,12 +64,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="pointsprites.frag" />
-    <None Include="pointsprites.vert" />
-    <None Include="pointsprites2.frag" />
+    <ClCompile Include="ch06-06-Texture-Cube.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch03-07-PointSprites.cpp" />
+    <None Include="object.frag" />
+    <None Include="object.vert" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
