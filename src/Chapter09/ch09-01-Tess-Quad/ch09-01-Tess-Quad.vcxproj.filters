@@ -14,17 +14,4 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="perspective.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="perspective.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ch9-01-Perspective-Correction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
 </Project>
