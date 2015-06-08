@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <windows.h>
+#include <GL/glew.h>
 
 char *textFileRead(const char *fn);  
 
