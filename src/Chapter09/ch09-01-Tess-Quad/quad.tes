@@ -1,19 +1,36 @@
-#version 430 core
+#version 400 core
 
-layout (quads) in;
+layout (quads, equal_spacing, ccw) in;
 
 uniform mat4  mvp;
 
-#define p(i)  gl_in[i].gl_Position
+#define M_PI		3.14159265358979323846
+
+//----------------------------------------------------------------------------
+
+float Hanning( vec2 p )
+{
+    p -= 0.5; // map unit square to [-.5, .5]
+
+    float r = length( p );
+
+    r = cos( M_PI * r / 2.0 );
+    r *= r;
+
+    return r;
+}
+
+//----------------------------------------------------------------------------
 
 void main()
 {
     float u = gl_TessCoord.x;
     float v = gl_TessCoord.y;
 
-    vec4 mid1 = mix(p(0), p(1), u);  
-    vec4 mid2 = mix(p(2), p(3), u);  
-    vec4 pos  = mix(mid1, mid2, v);      
+#define p(i)  gl_in[i].gl_Position
+
+    vec4 pos = v*(u*p(0) + (1-u)*p(1)) + (1-v)*(u*p(3) + (1-u)*p(2));
+    pos.z = Hanning( gl_TessCoord.xy );
     
-    gl_Position =  pos;
+    gl_Position = mvp * pos;
 }
