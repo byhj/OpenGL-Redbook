@@ -1,0 +1,19 @@
+#version 430 core
+
+layout (quads) in;
+
+uniform mat4  mvp;
+
+#define p(i)  gl_in[i].gl_Position
+
+void main()
+{
+    float u = gl_TessCoord.x;
+    float v = gl_TessCoord.y;
+
+    vec4 mid1 = mix(p(0), p(1), u);  
+    vec4 mid2 = mix(p(2), p(3), u);  
+    vec4 pos  = mix(mid1, mid2, v);      
+    
+    gl_Position =  pos;
+}

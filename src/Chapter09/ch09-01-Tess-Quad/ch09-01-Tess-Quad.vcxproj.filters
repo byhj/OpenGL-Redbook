@@ -14,4 +14,23 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch09-01-Tess-Quad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="quad.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="quad.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="quad.tes">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="quad.tcs">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
