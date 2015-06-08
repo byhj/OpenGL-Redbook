@@ -20,10 +20,11 @@ static const GLfloat VertexData[] =
 	-0.75f,  0.75f,	
 	0.75f,  0.75f,	
 
+	//We use texcoord which more than 1.0 to show the texture wrapping
 	0.0f, 0.0f,
-	1.0f, 0.0f,
-	1.0f, 1.0f,
-	0.0f, 1.0f,
+	4.0f, 0.0f,
+	4.0f, 4.0f,
+	0.0f, 4.0f,
 };	
 static const GLsizei VertexSize = sizeof(VertexData);
 
@@ -55,17 +56,27 @@ void display(void)
 {
 	//Clear the framebuffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glDisable(GL_CULL_FACE);
+	 
 
 	//Bind the vao, which manage status we when to render
 	glUseProgram(program);
-	glBindVertexArray(vao);  
+	glBindVertexArray(vao);
 
 	glBindTexture(GL_TEXTURE_2D, tex);
+	unsigned int ticks = GetTickCount();
+
+	static const GLenum wrap_modes[] = 
+	{
+		GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_REPEAT, GL_MIRRORED_REPEAT,
+	};
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_modes[(ticks >> 11) & 0x3]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_modes[(ticks >> 11) & 0x3]);
+
+
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
 	glutSwapBuffers();
-	glutPostRedisplay();
+	//glutPostRedisplay();
 }
 
 
@@ -84,7 +95,7 @@ int main(int argc,char ** argv)
 
 	init();
 	glutDisplayFunc(display); 
-	glutIdleFunc(display);
+	//glutIdleFunc(display);
 	glutReshapeFunc(reshape); 
 	glutMainLoop();    
 	return 0;
@@ -147,30 +158,10 @@ static const GLubyte tex_data[] =  //棋盘黑白纹理
 
 void init_texture()
 {
-	/*
-	GLfloat test_tex[] = 
-	{
-		1.0f, 0.0f, 0.0f,  //red
-		0.0f, 1.0f, 0.0f,  //green
-		0.0f, 0.0f, 1.0f,  //blue
-		1.0f, 0.0f, 1.0f,  //pink
-	};
 
-	//内部颜色格式是显卡内格式，即要显示的颜色，在测试出传入rgb分量，显示时如果设置为GL_RG32F，则考虑RG分量
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RG32F, 2, 2);
-
-	外部颜色格式是数据传入表示的格式，即规定了数据怎么排列组成颜色分量
-	在test_tex中传入四个颜色值，每三个float组成一个片元的颜色值，对应rgb分量
-	glTexSubImage2D(GL_TEXTURE_2D,
-		0,
-		0, 0,
-		2, 2,
-		GL_RGB, GL_FLOAT,
-	    test_tex);
-	*/
 	glGenTextures(1, &tex);
 	glBindTexture(GL_TEXTURE_2D, tex);
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F , 8, 8);
+	glTexStorage2D(GL_TEXTURE_2D, 4, GL_RGBA32F , 8, 8);
 
 	glTexSubImage2D(GL_TEXTURE_2D,
 		0,
@@ -183,6 +174,9 @@ void init_texture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	//We set the border color for wrapping
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, &glm::vec4(0.5f, 0.0f, 0.5f, 1.0f)[0]);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 0);

@@ -1,30 +1,28 @@
+#include <common/loadTexture.h>
+#include <common/shader.h>
+
 #include <gl/glew.h>
 #include <gl/freeglut.h>
-
-#include <common/shader.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 #include <iostream>
 
-GLuint tex, tex_loc;
+GLuint tex0, tex1, tex0_loc, tex1_loc;
 GLuint vao, vbo, ibo, program = 0;
 Shader triangleShader("triangle shader");  
 const int Width = 1200, Height = 800; 
 
 static const GLfloat VertexData[] = 
 {  
-	0.75f, -0.75f, 
-	-0.75f, -0.75f,	
-	-0.75f,  0.75f,	
-	0.75f,  0.75f,	
-
-	0.0f, 0.0f,
-	1.0f, 0.0f,
-	1.0f, 1.0f,
-	0.0f, 1.0f,
-};	
+	//Position         Texcoord
+	 0.75f, -0.75f,   0.0f, 0.0f,
+	-0.75f, -0.75f,   1.0f, 0.0f,
+	-0.75f,  0.75f,   1.0f, 1.0f,
+	 0.75f,  0.75f,   0.0f, 1.0f,
+};				      
 static const GLsizei VertexSize = sizeof(VertexData);
 
 
@@ -61,7 +59,11 @@ void display(void)
 	glUseProgram(program);
 	glBindVertexArray(vao);  
 
-	glBindTexture(GL_TEXTURE_2D, tex);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, tex0);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, tex1);
+
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
 	glutSwapBuffers();
@@ -99,8 +101,12 @@ void init_shader()
 	triangleShader.link();
 	triangleShader.use();
 	program = triangleShader.GetProgram();
-	tex_loc = glGetUniformLocation(program, "tex");
-	glUniform1i(tex_loc, 0);
+	tex0_loc = glGetUniformLocation(program, "tex0");
+	tex1_loc = glGetUniformLocation(program, "tex1");
+
+	//set the GL_TEXTURE_2D index 
+	glUniform1i(tex0_loc, 0);
+	glUniform1i(tex1_loc, 1);
 }
 
 
@@ -123,67 +129,16 @@ void init_vertexArray()
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FLOAT,0, (GLvoid*)(8 * sizeof(GLfloat) + NULL) );
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FLOAT, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat) + NULL) );
 
+	glBindVertexArray(0);
 }
 
-#define B 0x00, 0x00, 0x00, 0x00
-#define W 0xFF, 0xFF, 0xFF, 0xFF
-static const GLubyte tex_data[] =  //棋盘黑白纹理
-{
-	B, W, B, W, B, W, B, W,
-	W, B, W, B, W, B, W, B,
-	B, W, B, W, B, W, B, W,
-	W, B, W, B, W, B, W, B,
-	B, W, B, W, B, W, B, W,
-	W, B, W, B, W, B, W, B,
-	B, W, B, W, B, W, B, W,
-	W, B, W, B, W, B, W, B,
-};
-#undef B
-#undef W
 
 
 void init_texture()
 {
-	/*
-	GLfloat test_tex[] = 
-	{
-		1.0f, 0.0f, 0.0f,  //red
-		0.0f, 1.0f, 0.0f,  //green
-		0.0f, 0.0f, 1.0f,  //blue
-		1.0f, 0.0f, 1.0f,  //pink
-	};
-
-	//内部颜色格式是显卡内格式，即要显示的颜色，在测试出传入rgb分量，显示时如果设置为GL_RG32F，则考虑RG分量
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RG32F, 2, 2);
-
-	外部颜色格式是数据传入表示的格式，即规定了数据怎么排列组成颜色分量
-	在test_tex中传入四个颜色值，每三个float组成一个片元的颜色值，对应rgb分量
-	glTexSubImage2D(GL_TEXTURE_2D,
-		0,
-		0, 0,
-		2, 2,
-		GL_RGB, GL_FLOAT,
-	    test_tex);
-	*/
-	glGenTextures(1, &tex);
-	glBindTexture(GL_TEXTURE_2D, tex);
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F , 8, 8);
-
-	glTexSubImage2D(GL_TEXTURE_2D,
-		0,
-		0, 0,
-		8, 8,
-		GL_RGBA, GL_UNSIGNED_BYTE,
-		tex_data);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
+	tex0 = loadTexture("../../../media/textures/test.dds");
+	tex1 = loadTexture("../../../media/textures/test3.dds");
 }

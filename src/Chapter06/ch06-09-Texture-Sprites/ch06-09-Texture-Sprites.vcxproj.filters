@@ -15,15 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="triangle.vert">
+    <None Include="pointsprites.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="triangle.frag">
+    <None Include="pointsprites2.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="pointsprites.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch06-02-Texture-Image.cpp">
+    <ClCompile Include="ch06-09-Texture-Sprites.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

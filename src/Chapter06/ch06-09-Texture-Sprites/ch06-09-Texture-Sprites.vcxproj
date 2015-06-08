@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8F7D83C2-A12D-40BF-A6A7-F8123AE0CF21}</ProjectGuid>
-    <RootNamespace>ch0602TextureImage</RootNamespace>
+    <ProjectGuid>{A5A9FAF5-7D1D-4FE3-A850-6C20E490BE45}</ProjectGuid>
+    <RootNamespace>ch0609TextureSprites</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -37,7 +37,6 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\OpenGL-Redbook.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -64,11 +63,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="triangle.frag" />
-    <None Include="triangle.vert" />
+    <None Include="pointsprites.frag" />
+    <None Include="pointsprites.vert" />
+    <None Include="pointsprites2.frag" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch06-02-Texture-Image.cpp" />
+    <ClCompile Include="ch06-09-Texture-Sprites.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

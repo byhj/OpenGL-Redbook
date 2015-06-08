@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8F7D83C2-A12D-40BF-A6A7-F8123AE0CF21}</ProjectGuid>
-    <RootNamespace>ch0602TextureImage</RootNamespace>
+    <ProjectGuid>{7957F4B4-0F77-485D-8107-FE918DE15572}</ProjectGuid>
+    <RootNamespace>ch0604TextureUnit</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -37,7 +37,6 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\OpenGL-Redbook.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -68,7 +67,7 @@
     <None Include="triangle.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch06-02-Texture-Image.cpp" />
+    <ClCompile Include="ch06-04-Texture-Image.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

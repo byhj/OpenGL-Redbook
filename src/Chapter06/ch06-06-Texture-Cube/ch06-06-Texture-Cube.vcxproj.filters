@@ -15,16 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="triangle.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="triangle.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ch06-02-Texture-Image.cpp">
+    <ClCompile Include="ch06-06-Texture-Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="skybox.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="skybox.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="object.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="object.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

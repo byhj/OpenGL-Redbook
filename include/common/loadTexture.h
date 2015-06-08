@@ -1,4 +1,9 @@
+#ifndef LOADTEXTURE_H
+#define LOADTEXTURE_H
+
+#include <GL/glew.h>
 #include <IL/il.h>
+#include <iostream>
 
 GLuint loadTexture(const  char* theFileName)
 {
@@ -9,14 +14,17 @@ GLuint loadTexture(const  char* theFileName)
 	ilBindImage(imageID); 			// Bind the image
 	ILboolean success = ilLoadImage(theFileName); 	// Load the image file
 
-	if (success) {
+	if (success) 
+	{
 		glGenTextures(1, &textureID); //创建Opengl纹理接口
 		glBindTexture(GL_TEXTURE_2D, textureID);
+
 		//设置纹理的过滤和环绕模式
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
 		//将加载的纹理数据转化为OpenGL格式
  	    ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 		//将数据传入纹理对象中
@@ -138,3 +146,4 @@ GLuint loadTexture(const  char* theFileName, GLuint target)
 	std::cout << "Texture creation successful." << std::endl;
 	return textureID; // 返回加载纹理索引
 }
+#endif

@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="triangle.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="triangle.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ch06-02-Texture-Image.cpp">
+    <ClCompile Include="ch06-08-Texture-Mipmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="texture.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="texture.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

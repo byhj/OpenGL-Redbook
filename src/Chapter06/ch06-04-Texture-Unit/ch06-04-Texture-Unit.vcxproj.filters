@@ -23,7 +23,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch06-02-Texture-Image.cpp">
+    <ClCompile Include="ch06-04-Texture-Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
