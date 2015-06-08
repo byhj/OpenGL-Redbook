@@ -14,4 +14,26 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch10-01-Geom-Fur.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fur.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fur.geom">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fur.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="base.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="base.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
