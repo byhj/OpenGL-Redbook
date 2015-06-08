@@ -68,19 +68,23 @@ void display(void)
 	///////////////////////////////////////////////////////////////////////////////////////
 	glUseProgram(object_prog);
 	object.BindVertexArray();
-	tc_matrix = vmath::translate(vmath::vec3(0.0f, 0.0f, -4.0f)) 
-		      * vmath::rotate(80.0f * 3.0f * t, Y)
-			  * vmath::rotate(70.0f * 3.0f * t, Z);
-	glUniformMatrix4fv(mv_loc, 1, GL_FALSE, tc_matrix);
+	vmath::mat4 world = vmath::translate(vmath::vec3(0.0f, 0.0f, 30.0f)) 
+		              * vmath::rotate(80.0f * 3.0f * t, Y)
+			          * vmath::rotate(70.0f * 3.0f * t, Z);
+	vmath::mat4 view = vmath::lookat(vmath::vec3(0.0f, 0.0f, 100.0f), vmath::vec3(0.0f, 0.0f, 0.0f), vmath::vec3(0.0f, 1.0f, 0.0f) );
+	vmath::mat4 mv = view * world;
 
-	tc_matrix = vmath::perspective(35.0f, 1.0f / aspect, 0.1f, 100.0f);
-	glUniformMatrix4fv(proj_loc, 1, GL_FALSE, tc_matrix);
+	glUniformMatrix4fv(mv_loc, 1, GL_FALSE, mv);
+
+	vmath::mat4 proj = vmath::perspective(35.0f, 1.0f / aspect, 0.1f, 100.0f);
+	glUniformMatrix4fv(proj_loc, 1, GL_FALSE, proj);
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	object.Render();
 
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void finalize(void)
@@ -142,13 +146,14 @@ void init_buffer()
 	glGenBuffers(1, &cube_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, cube_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
-
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &cube_ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube_ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	object.LoadFromVBM("../media/objects/torus.vbm", 0, 1, 2);
+	object.LoadFromVBM("../../../media/objects/torus.vbm", 0, 1, 2);
 }
 
 void init_shader()
@@ -166,11 +171,12 @@ void init_shader()
 	objectShader.attach(GL_FRAGMENT_SHADER, "object.frag");
 	objectShader.link();
 	objectShader.use();
+	objectShader.interfaceInfo();
 	object_prog = objectShader.GetProgram();
 	//tex_loc = glGetUniformLocation(base_prog, "tex");  //sampler是shader获取纹理数据的方法
 	proj_loc = glGetUniformLocation(object_prog, "proj");
 	mv_loc = glGetUniformLocation(object_prog, "mv");
-	glUniform1i(tex_loc, 0); 
+	//glUniform1i(tex_loc, 0); 
 
 }
 void init_vertexArray()
@@ -181,6 +187,7 @@ void init_vertexArray()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(0);
 
+	glBindVertexArray(0);
 }
 
 void init_texture()

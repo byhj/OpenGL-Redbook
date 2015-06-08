@@ -22,8 +22,10 @@ bool VBObject::LoadFromVBM(const char * filename, int vertexIndex, int normalInd
 
     f = fopen(filename, "rb");
     if(f == NULL)
+	{
+		printf("Can not open the model\n");
         return false;
-
+	}
     fseek(f, 0, SEEK_END);
     size_t filesize = ftell(f);
     fseek(f, 0, SEEK_SET);
