@@ -9,7 +9,8 @@ using namespace vmath;
 #define FRUSTUM_DEPTH       800.0f
 #define DEPTH_TEXTURE_SIZE  2048
 
-const int Width = 1000, Height = 800; 
+GLint current_width;
+GLint current_height;
 VBObject g_object;
 
 Shader ObjectShader("Object Shader");
@@ -30,7 +31,7 @@ struct
    GLuint model;
    GLuint view;
    GLuint proj;
-   GLuint shadow;
+   GLuint shadow_matrix;
    GLuint lightPos;
    GLuint mat_ambient;
    GLuint mat_diffuse;
@@ -49,12 +50,13 @@ void DrawScene(bool depth_only);
 
 void init()
 {
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearDepth(1.0f);
+	init_shader();
 	init_texture();
 	init_fbo();
 	init_buffer();
 	init_vertexArray();
-	init_shader();
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 }
 
@@ -67,7 +69,7 @@ void display()
 	static const vec3 X(1.0f, 0.0f, 0.0f);
 	static const vec3 Y(0.0f, 1.0f, 0.0f);
 	static const vec3 Z(0.0f, 0.0f, 1.0f);
-
+	
 	//We change the light pos every frame
 	vec3 light_position = vec3(sinf(t * 6.0f * 3.141592f) * 300.0f, 200.0f, cosf(t * 4.0f * 3.141592f) * 100.0f + 250.0f);
 	// Setup
@@ -114,31 +116,24 @@ void display()
 
 	// Restore the default framebuffer and field of view
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, Width, Height);
+	glViewport(0, 0, current_width, current_height);
 	// Now render from the viewer's position
 
 	glUseProgram(base_prog);
-	base_uniform_loc.shadow     = glGetUniformLocation(base_prog, "shadow");
-	base_uniform_loc.lightPos           = glGetUniformLocation(base_prog, "lightPos");
-	base_uniform_loc.mat_ambient        = glGetUniformLocation(base_prog, "mat_ambient");
-	base_uniform_loc.mat_diffuse        = glGetUniformLocation(base_prog, "mat_diffuse");
-	base_uniform_loc.mat_specular       = glGetUniformLocation(base_prog, "mat_specular");
-	base_uniform_loc.mat_specular_power = glGetUniformLocation(base_prog, "mat_specular_power");
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	
 	
 	// Setup all the matrices
 	glUniformMatrix4fv(base_uniform_loc.model, 1, GL_FALSE, scene_model_matrix);
 	glUniformMatrix4fv(base_uniform_loc.view, 1, GL_FALSE, scene_view_matrix);
 	glUniformMatrix4fv(base_uniform_loc.proj, 1, GL_FALSE, scene_projection_matrix);
-	glUniformMatrix4fv(base_uniform_loc.shadow, 1, GL_FALSE, scale_bias_matrix * light_projection_matrix * light_view_matrix);
+	glUniformMatrix4fv(base_uniform_loc.shadow_matrix, 1, GL_FALSE, scale_bias_matrix * light_projection_matrix * light_view_matrix);
 	glUniform3fv(      base_uniform_loc.lightPos, 1, light_position);
 
 	// Bind the depth texture
 	glBindTexture(GL_TEXTURE_2D, depth_texture);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	DrawScene(false);
+    DrawScene(false);
 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -182,9 +177,12 @@ void shutdown()
 	glDeleteVertexArrays(1, &ground_vao);
 }
 
-void reshape(int w, int h)
+void reshape(int width, int height)
 {
-	glViewport(0, 0, w, h);
+	current_width = width;
+	current_height = width;
+
+	aspect = float(height) / float(width);
 }
 
 int main(int argc,char ** argv)
@@ -192,7 +190,7 @@ int main(int argc,char ** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);//The display mode is necessary
 	glutInitWindowPosition(300, 0);
-	glutInitWindowSize(Width, Height);
+	glutInitWindowSize(1024, 768);
 	//glutInitContextVersion(4, 3);
 	//glutInitContextProfile(GLUT_CORE_PROFILE);
 
@@ -271,12 +269,16 @@ void init_shader()
 	ObjectShader.attach(GL_FRAGMENT_SHADER, "base.frag");
 	ObjectShader.link();
 	ObjectShader.interfaceInfo();
-	ObjectShader.use();
 	base_prog = ObjectShader.GetProgram();
 	base_uniform_loc.model              = glGetUniformLocation(base_prog, "model");
 	base_uniform_loc.view               = glGetUniformLocation(base_prog, "view");
 	base_uniform_loc.proj               = glGetUniformLocation(base_prog, "proj");
-
+	base_uniform_loc.shadow_matrix      = glGetUniformLocation(base_prog, "shadow_matrix");
+	base_uniform_loc.lightPos           = glGetUniformLocation(base_prog, "lightPos");
+	base_uniform_loc.mat_ambient        = glGetUniformLocation(base_prog, "mat_ambient");
+	base_uniform_loc.mat_diffuse        = glGetUniformLocation(base_prog, "mat_diffuse");
+	base_uniform_loc.mat_specular       = glGetUniformLocation(base_prog, "mat_specular");
+	base_uniform_loc.mat_specular_power = glGetUniformLocation(base_prog, "mat_specular_power");
 
 	//set the depth texture to unit 0 
 	glUseProgram(base_prog);

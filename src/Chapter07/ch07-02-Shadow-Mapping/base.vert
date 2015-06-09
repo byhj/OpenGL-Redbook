@@ -3,7 +3,7 @@
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
-uniform mat4 shadow;
+uniform mat4 shadow_matrix;
 
 layout (location = 0) in vec4 position;
 layout (location = 1) in vec3 normal;
@@ -24,7 +24,7 @@ void main(void)
 
     vs_out.world_coord = world_pos.xyz;
     vs_out.eye_coord = eye_pos.xyz;
-    vs_out.shadow_coord = shadow * world_pos;
+    vs_out.shadow_coord = shadow_matrix * world_pos;
     vs_out.normal = mat3(view * model) * normal;
 
     gl_Position = proj * view * model * position;

@@ -31,5 +31,5 @@ void main(void)
 	//proj the shadow texture
     float f = textureProj(depth_texture, fs_in.shadow_coord);
 
-    fragColor = vec4(1.0f);//vec4(mat_ambient + f * (mat_diffuse * diffuse + mat_specular * specular), 1.0);
+    fragColor = vec4(mat_ambient + f * (mat_diffuse * diffuse + mat_specular * specular), 1.0);
 }
