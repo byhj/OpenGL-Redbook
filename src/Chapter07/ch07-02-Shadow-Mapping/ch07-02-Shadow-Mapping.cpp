@@ -3,11 +3,12 @@
 #include <common/vmath.h>
 #include <common/vbm.cpp>
 #include <iostream>
+#include <common/glDebug.h>
 
 using namespace vmath;
 
 #define FRUSTUM_DEPTH       800.0f
-#define DEPTH_TEXTURE_SIZE  2048
+#define DEPTH_TEXTURE_SIZE  1024
 
 GLint current_width;
 GLint current_height;
@@ -69,7 +70,7 @@ void display()
 	static const vec3 X(1.0f, 0.0f, 0.0f);
 	static const vec3 Y(0.0f, 1.0f, 0.0f);
 	static const vec3 Z(0.0f, 0.0f, 1.0f);
-	
+		//CheckDebugLog();  
 	//We change the light pos every frame
 	vec3 light_position = vec3(sinf(t * 6.0f * 3.141592f) * 300.0f, 200.0f, cosf(t * 4.0f * 3.141592f) * 100.0f + 250.0f);
 	// Setup
@@ -305,7 +306,7 @@ void init_fbo()
 	//Create a Fbo, render the depth texture
 	glGenFramebuffers(1, &depth_fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, depth_fbo);
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, depth_texture, 0);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depth_texture, 0);
 
 	//We don't need the color buffer
     glDrawBuffer(GL_NONE);

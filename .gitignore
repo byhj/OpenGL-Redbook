@@ -32,6 +32,7 @@ $RECYCLE.BIN/
 *.dds
 *.bmp
 *.png
+*.trace
 
 # =========================
 # Operating System Files
