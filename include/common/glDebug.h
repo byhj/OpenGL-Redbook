@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <windows.h>
 
 #define INVALID_UNIFORM_LOCATION 0xffffffff
 #define INVALID_OGL_VALUE 0xffffffff
