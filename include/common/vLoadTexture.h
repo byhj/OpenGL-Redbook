@@ -1,6 +1,8 @@
 #ifndef VLOADTEXTURE_H
 #define VLOADTEXTURE_H
 
+#pragma comment (lib, "vermilion32_d")
+
 #define VERMILION_BUILD_LIB
 #include <vermilion.h>
 
