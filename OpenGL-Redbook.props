@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)\shader\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\temp</IntDir>
     <ExecutablePath>$(SolutionDir)\shader\$(ProjectName)\;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
