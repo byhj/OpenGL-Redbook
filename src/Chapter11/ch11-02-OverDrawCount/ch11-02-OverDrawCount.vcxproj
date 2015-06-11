@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C6790CBD-8A8C-4B19-A5B0-75BD764FEBAB}</ProjectGuid>
-    <RootNamespace>ch1202CompParticles</RootNamespace>
+    <ProjectGuid>{FB5389EC-1E32-448C-8CB0-9A129A73FEB8}</ProjectGuid>
+    <RootNamespace>ch1102OverDrawCount</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

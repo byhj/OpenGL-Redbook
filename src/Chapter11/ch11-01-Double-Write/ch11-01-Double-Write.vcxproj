@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C6231714-4E18-4C12-8BB7-D0452CA14E1A}</ProjectGuid>
-    <RootNamespace>ch1203GeomImageProcessing</RootNamespace>
+    <ProjectGuid>{6845069A-7B42-4E6D-B486-2D57C80A5CD9}</ProjectGuid>
+    <RootNamespace>ch1101DoubleWrite</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
