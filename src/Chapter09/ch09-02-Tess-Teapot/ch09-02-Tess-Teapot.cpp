@@ -47,9 +47,9 @@ void display(void)
 	glBindVertexArray(vao);  
 
 	float t = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(-0.2625f, -1.575f, -8.5f ) );
+	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(-0.2625f, -1.575f, -1.5f ) );
 		
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	glm::mat4 proj = glm::perspective(60.0f, 1.0f, 0.1f, 100.0f);
 	glm::mat4 mvp =  proj * view * model;
 
@@ -94,6 +94,7 @@ void init_shader()
 	triangleShader.attach(GL_TESS_EVALUATION_SHADER, "teapot.tes");
 	triangleShader.attach(GL_FRAGMENT_SHADER, "teapot.frag");
 	triangleShader.link();
+	triangleShader.use();
 	triangleShader.interfaceInfo();
 	program = triangleShader.GetProgram();
 	Inner_loc = glGetUniformLocation(program, "Inner");
