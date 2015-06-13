@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)\$(Configuration)\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)\bin</OutDir>
     <IntDir>$(SolutionDir)\temp</IntDir>
     <ExecutablePath>$(SolutionDir)\shader\$(ProjectName)\;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
@@ -12,7 +12,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;freeglut.lib;DevIL.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

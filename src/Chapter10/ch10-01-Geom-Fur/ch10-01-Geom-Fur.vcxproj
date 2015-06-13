@@ -64,6 +64,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ch10-01-Geom-Fur.cpp" />
+    <ClCompile Include="vbm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="base.frag" />
@@ -71,6 +72,9 @@
     <None Include="fur.frag" />
     <None Include="fur.geom" />
     <None Include="fur.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vbm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

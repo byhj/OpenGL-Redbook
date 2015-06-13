@@ -64,6 +64,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ch11-02-OverDrawCount.cpp" />
+    <ClCompile Include="vbm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="blit.frag" />
+    <None Include="blit.vert" />
+    <None Include="overdraw_count.frag" />
+    <None Include="overdraw_count.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vbm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

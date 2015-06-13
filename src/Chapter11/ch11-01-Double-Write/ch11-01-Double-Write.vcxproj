@@ -64,12 +64,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ch11-01-Double-Write.cpp" />
+    <ClCompile Include="vbm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="base.frag" />
     <None Include="base.vert" />
     <None Include="blit.frag" />
     <None Include="blit.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vbm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

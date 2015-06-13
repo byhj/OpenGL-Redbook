@@ -1,4 +1,4 @@
-#version 410
+#version 420 core
 
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 240) out;

@@ -1,9 +1,9 @@
-#include <common/vbm.cpp>
+#include <common/shader.h>
 #include <common/vmath.h>
+#include "vbm.h"
+
 #include <gl/glew.h>
 #include <gl/freeglut.h>
-
-#include <common/shader.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -69,7 +69,6 @@ void display(void)
 		                                         vmath::translate(0.0f, -80.0f, 0.0f));
 
 	glUseProgram(base_prog);
-	object.BindVertexArray();
 	glUniformMatrix4fv(base_model_matrix_pos, 1, GL_FALSE, m[0]);
 	glUniformMatrix4fv(base_projection_matrix_pos, 1, GL_FALSE, p);
 

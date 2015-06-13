@@ -18,5 +18,27 @@
     <ClCompile Include="ch11-03-OIT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vbm.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="blit.fs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="blit.vs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="overdraw_count.fs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="overdraw_count.vs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vbm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

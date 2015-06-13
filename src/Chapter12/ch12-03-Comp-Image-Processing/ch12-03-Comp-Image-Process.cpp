@@ -35,7 +35,6 @@ public:
 		// Now bind the texture for rendering _from_
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, output_image);
-
 		// Clear, select the rendering program and draw a full screen quad
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(render_prog);
@@ -118,15 +117,17 @@ void ImageApp::init_shader()
 	compute_prog = CompShader.GetProgram();
 
 	// Load a texture to process
-	input_image = vglLoadTexture("../../../media/textures/curiosity.dds", 0, NULL);
+	input_image = vglLoadTexture("../../../media/textures/test.dds", 0, NULL);
 
 	glGenTextures(1, &intermediate_image);
 	glBindTexture(GL_TEXTURE_2D, intermediate_image);
 	glTexStorage2D(GL_TEXTURE_2D, 8, GL_RGBA32F, 1024, 1024);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	// This is the texture that the compute program will write into
 	glGenTextures(1, &output_image);
 	glBindTexture(GL_TEXTURE_2D, output_image);
 	glTexStorage2D(GL_TEXTURE_2D, 8, GL_RGBA32F, 1024, 1024);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

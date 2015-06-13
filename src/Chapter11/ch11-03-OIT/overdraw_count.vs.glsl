@@ -22,10 +22,10 @@ out vec3 frag_normal;
 
 void main(void)
 {
-    vec4 offset = vec4(float(gl_InstanceID & 3) * 2.0,
-                       float((gl_InstanceID >> 2) & 3) * 2.0,
-                       float((gl_InstanceID >> 4) & 3) * 2.0, 0.0) -
-                  vec4(4.0, 4.0, 4.0, 0.0);
+    vec4 offset = vec4(float(gl_InstanceID & 7) * 2.0,
+                       float((gl_InstanceID >> 3) & 7) * 2.0,
+                       float((gl_InstanceID >> 6) & 7) * 2.0, 0.0) -
+                  vec4(8.0, 8.0, 8.0, 0.0);
 
     surface_color = normalize(offset) * 0.5 + vec4(0.5, 0.5, 0.5, 0.4);
 

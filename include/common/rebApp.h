@@ -36,7 +36,10 @@ namespace byhj
 		virtual void v_Init() = 0;
 		virtual void v_Render() = 0;
 		virtual void v_Shutdown() = 0;
-		
+		virtual void reshape(int w, int h)
+		{
+			glViewport(0, 0, w, h);
+		}
 		virtual void v_Keyboard(unsigned char key, int x, int y)
 		{
 			switch(key)
@@ -90,7 +93,7 @@ namespace byhj
 			glutKeyboardFunc(glut_keyboard);
 			glutPassiveMotionFunc(glut_passiveMouse);
 			glutMouseWheelFunc(glut_mouseWheel);
-
+			glutReshapeFunc(glut_reshape);
 			glutMainLoop();
 			v_Shutdown();
 
@@ -100,6 +103,10 @@ namespace byhj
 		static void glut_render()
 		{
 			app->v_Render();
+		}
+		static void glut_reshape(int w, int h)
+		{
+			app->reshape(w, h);
 		}
 		static void glut_keyboard(unsigned char key, int x, int y)
 		{

@@ -18,5 +18,27 @@
     <ClCompile Include="ch11-02-OverDrawCount.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vbm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="blit.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="blit.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="overdraw_count.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="overdraw_count.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vbm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
