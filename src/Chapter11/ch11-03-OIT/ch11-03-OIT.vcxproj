@@ -68,13 +68,13 @@
     <ClCompile Include="vbm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="blit.fs.glsl" />
-    <None Include="blit.vs.glsl" />
-    <None Include="overdraw_count.fs.glsl" />
-    <None Include="overdraw_count.vs.glsl" />
+    <ClInclude Include="vbm.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vbm.h" />
+    <None Include="build.frag" />
+    <None Include="build.vert" />
+    <None Include="resolve.frag" />
+    <None Include="resolve.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

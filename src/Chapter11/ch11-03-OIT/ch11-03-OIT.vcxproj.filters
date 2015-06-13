@@ -23,22 +23,22 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="blit.fs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="blit.vs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="overdraw_count.fs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="overdraw_count.vs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="vbm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resolve.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resolve.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="build.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="build.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
