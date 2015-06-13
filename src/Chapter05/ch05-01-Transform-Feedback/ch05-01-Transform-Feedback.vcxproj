@@ -66,6 +66,12 @@
   <ItemGroup>
     <ClCompile Include="ch5-01-Transform-Feedback.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="base.frag" />
+    <None Include="base.vert" />
+    <None Include="update.frag" />
+    <None Include="update.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
