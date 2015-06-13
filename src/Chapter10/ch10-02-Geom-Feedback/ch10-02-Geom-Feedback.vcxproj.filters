@@ -19,4 +19,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="sort.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sort.geom">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="base.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="base.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

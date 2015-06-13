@@ -65,6 +65,12 @@
   <ItemGroup>
     <ClCompile Include="ch10-02-Geom-Feedback.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="base.frag" />
+    <None Include="base.vert" />
+    <None Include="sort.geom" />
+    <None Include="sort.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

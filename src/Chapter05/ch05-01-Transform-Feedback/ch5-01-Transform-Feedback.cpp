@@ -84,111 +84,111 @@ void TransformFeedbackExample::Initialize(const char * title)
     update_prog = glCreateProgram();
 
     static const char update_vs_source[] =
-            "#version 410\n"
-            "\n"
-            "uniform mat4 model_matrix;\n"
-            "uniform mat4 projection_matrix;\n"
-            "uniform int triangle_count;\n"
-            "\n"
-            "layout (location = 0) in vec4 position;\n"
-            "layout (location = 1) in vec3 velocity;\n"
-            "\n"
-            "out vec4 position_out;\n"
-            "out vec3 velocity_out;\n"
-            "\n"
-            "uniform samplerBuffer geometry_tbo;\n"
-            "uniform float time_step = 0.02;\n"
-            "\n"
-            "bool intersect(vec3 origin, vec3 direction, vec3 v0, vec3 v1, vec3 v2, out vec3 point)\n"
-            "{\n"
-            "    vec3 u, v, n;\n"
-            "    vec3 w0, w;\n"
-            "    float r, a, b;\n"
-            "\n"
-            "    u = (v1 - v0);\n"
-            "    v = (v2 - v0);\n"
-            "    n = cross(u, v);\n"
-            // "    if (length(n) < 0.1)\n"
-            // "        return false;\n"
-            "\n"
-            "    w0 = origin - v0;\n"
-            "    a = -dot(n, w0);\n"
-            "    b = dot(n, direction);\n"
-            //"    if (abs(b) < 0.1)\n"
-            //"        return false;\n"
-            "\n"
-            "    r = a / b;\n"
-            "    if (r < 0.0 || r > 1.0)\n"
-            "        return false;\n"
-            "\n"
-            "    point = origin + r * direction;\n"
-            "\n"
-            "    float uu, uv, vv, wu, wv, D;\n"
-            "\n"
-            "    uu = dot(u, u);\n"
-            "    uv = dot(u, v);\n"
-            "    vv = dot(v, v);\n"
-            "    w = point - v0;\n"
-            "    wu = dot(w, u);\n"
-            "    wv = dot(w, v);\n"
-            "    D = uv * uv - uu * vv;\n"
-            "\n"
-            "    float s, t;\n"
-            "\n"
-            "    s = (uv * wv - vv * wu) / D;\n"
-            "    if (s < 0.0 || s > 1.0)\n"
-            "        return false;\n"
-            "    t = (uv * wu - uu * wv) / D;\n"
-            "    if (t < 0.0 || (s + t) > 1.0)\n"
-            "        return false;\n"
-            "\n"
-            "    return true;\n"
-            "}\n"
-            "\n"
-            "vec3 reflect_vector(vec3 v, vec3 n)\n"
-            "{\n"
-            "    return v - 2.0 * dot(v, n) * n;\n"
-            "}\n"
-            "\n"
-            "void main(void)\n"
-            "{\n"
-            "    vec3 accelleration = vec3(0.0, -0.3, 0.0);\n"
-            "    vec3 new_velocity = velocity + accelleration * time_step;\n"
-            "    vec4 new_position = position + vec4(new_velocity * time_step, 0.0);\n"
-            "    vec3 v0, v1, v2;\n"
-            "    vec3 point;\n"
-            "    int i;\n"
-            "    for (i = 0; i < triangle_count; i++)\n"
-            "    {\n"
-            "        v0 = texelFetch(geometry_tbo, i * 3).xyz;\n"
-            "        v1 = texelFetch(geometry_tbo, i * 3 + 1).xyz;\n"
-            "        v2 = texelFetch(geometry_tbo, i * 3 + 2).xyz;\n"
-            "        if (intersect(position.xyz, position.xyz - new_position.xyz, v0, v1, v2, point))\n"
-            "        {\n"
-            "            vec3 n = normalize(cross(v1 - v0, v2 - v0));\n"
-            "            new_position = vec4(point + reflect_vector(new_position.xyz - point, n), 1.0);\n"
-            "            new_velocity = 0.8 * reflect_vector(new_velocity, n);\n"
-            "        }\n"
-            "    }\n"
-            "    if (new_position.y < -40.0)\n"
-            "    {\n"
-            "        new_position = vec4(-new_position.x * 0.3, position.y + 80.0, 0.0, 1.0);\n"
-            "        new_velocity *= vec3(0.2, 0.1, -0.3);\n"
-            "    }\n"
-            "    velocity_out = new_velocity * 0.9999;\n"
-            "    position_out = new_position;\n"
-            "    gl_Position = projection_matrix * (model_matrix * position);\n"
-            "}\n";
+            "#version 410
+            "
+            "uniform mat4 model_matrix;
+            "uniform mat4 projection_matrix;
+            "uniform int triangle_count;
+            "
+            "layout (location = 0) in vec4 position;
+            "layout (location = 1) in vec3 velocity;
+            "
+            "out vec4 position_out;
+            "out vec3 velocity_out;
+            "
+            "uniform samplerBuffer geometry_tbo;
+            "uniform float time_step = 0.02;
+            "
+            "bool intersect(vec3 origin, vec3 direction, vec3 v0, vec3 v1, vec3 v2, out vec3 point)
+            "{
+            "    vec3 u, v, n;
+            "    vec3 w0, w;
+            "    float r, a, b;
+            "
+            "    u = (v1 - v0);
+            "    v = (v2 - v0);
+            "    n = cross(u, v);
+            // "    if (length(n) < 0.1)
+            // "        return false;
+            "
+            "    w0 = origin - v0;
+            "    a = -dot(n, w0);
+            "    b = dot(n, direction);
+            //"    if (abs(b) < 0.1)
+            //"        return false;
+            "
+            "    r = a / b;
+            "    if (r < 0.0 || r > 1.0)
+            "        return false;
+            "
+            "    point = origin + r * direction;
+            "
+            "    float uu, uv, vv, wu, wv, D;
+            "
+            "    uu = dot(u, u);
+            "    uv = dot(u, v);
+            "    vv = dot(v, v);
+            "    w = point - v0;
+            "    wu = dot(w, u);
+            "    wv = dot(w, v);
+            "    D = uv * uv - uu * vv;
+            "
+            "    float s, t;
+            "
+            "    s = (uv * wv - vv * wu) / D;
+            "    if (s < 0.0 || s > 1.0)
+            "        return false;
+            "    t = (uv * wu - uu * wv) / D;
+            "    if (t < 0.0 || (s + t) > 1.0)
+            "        return false;
+            "
+            "    return true;
+            "}
+            "
+            "vec3 reflect_vector(vec3 v, vec3 n)
+            "{
+            "    return v - 2.0 * dot(v, n) * n;
+            "}
+            "
+            "void main(void)
+            "{
+            "    vec3 accelleration = vec3(0.0, -0.3, 0.0);
+            "    vec3 new_velocity = velocity + accelleration * time_step;
+            "    vec4 new_position = position + vec4(new_velocity * time_step, 0.0);
+            "    vec3 v0, v1, v2;
+            "    vec3 point;
+            "    int i;
+            "    for (i = 0; i < triangle_count; i++)
+            "    {
+            "        v0 = texelFetch(geometry_tbo, i * 3).xyz;
+            "        v1 = texelFetch(geometry_tbo, i * 3 + 1).xyz;
+            "        v2 = texelFetch(geometry_tbo, i * 3 + 2).xyz;
+            "        if (intersect(position.xyz, position.xyz - new_position.xyz, v0, v1, v2, point))
+            "        {
+            "            vec3 n = normalize(cross(v1 - v0, v2 - v0));
+            "            new_position = vec4(point + reflect_vector(new_position.xyz - point, n), 1.0);
+            "            new_velocity = 0.8 * reflect_vector(new_velocity, n);
+            "        }
+            "    }
+            "    if (new_position.y < -40.0)
+            "    {
+            "        new_position = vec4(-new_position.x * 0.3, position.y + 80.0, 0.0, 1.0);
+            "        new_velocity *= vec3(0.2, 0.1, -0.3);
+            "    }
+            "    velocity_out = new_velocity * 0.9999;
+            "    position_out = new_position;
+            "    gl_Position = projection_matrix * (model_matrix * position);
+            "};
 
     static const char white_fs[] =
-        "#version 410\n"
-        "\n"
-        "layout (location = 0) out vec4 color;\n"
-        "\n"
-        "void main(void)\n"
-        "{\n"
-        "    color = vec4(1.0);\n"
-        "}\n";
+        "#version 410
+        "
+        "layout (location = 0) out vec4 color;
+        "
+        "void main(void)
+        "{
+        "    color = vec4(1.0);
+        "};
 
     vglAttachShaderSource(update_prog, GL_VERTEX_SHADER, update_vs_source);
     vglAttachShaderSource(update_prog, GL_FRAGMENT_SHADER, white_fs);
@@ -211,37 +211,37 @@ void TransformFeedbackExample::Initialize(const char * title)
     render_prog = glCreateProgram();
 
     static const char render_vs[] =
-        "#version 410\n"
-        "\n"
-        "uniform mat4 model_matrix;\n"
-        "uniform mat4 projection_matrix;\n"
-        "\n"
-        "layout (location = 0) in vec4 position;\n"
-        "layout (location = 1) in vec3 normal;\n"
-        "\n"
-        "out vec4 world_space_position;\n"
-        "\n"
-        "out vec3 vs_fs_normal;\n"
-        "\n"
-        "void main(void)\n"
-        "{\n"
-        "    vec4 pos = (model_matrix * (position * vec4(1.0, 1.0, 1.0, 1.0)));\n"
-        "    world_space_position = pos;\n"
-        "    vs_fs_normal = normalize((model_matrix * vec4(normal, 0.0)).xyz);\n"
-        "    gl_Position = projection_matrix * pos;\n"
-        "}\n";
+        "#version 410
+        "
+        "uniform mat4 model_matrix;
+        "uniform mat4 projection_matrix;
+        "
+        "layout (location = 0) in vec4 position;
+        "layout (location = 1) in vec3 normal;
+        "
+        "out vec4 world_space_position;
+        "
+        "out vec3 vs_fs_normal;
+        "
+        "void main(void)
+        "{
+        "    vec4 pos = (model_matrix * (position * vec4(1.0, 1.0, 1.0, 1.0)));
+        "    world_space_position = pos;
+        "    vs_fs_normal = normalize((model_matrix * vec4(normal, 0.0)).xyz);
+        "    gl_Position = projection_matrix * pos;
+        "};
 
     static const char blue_fs[] =
-        "#version 410\n"
-        "\n"
-        "layout (location = 0) out vec4 color;\n"
-        "\n"
-        "in vec3 vs_fs_normal;\n"
-        "\n"
-        "void main(void)\n"
-        "{\n"
-        "    color = vec4(0.0, 0.2, 0.0, 1.0) + vec4(0.2, 0.5, 0.4, 1.0) * abs(vs_fs_normal.z) + vec4(0.8, 0.9, 0.7, 1.0) * pow(abs(vs_fs_normal.z), 70.0);\n"
-        "}\n";
+        "#version 410
+        "
+        "layout (location = 0) out vec4 color;
+        "
+        "in vec3 vs_fs_normal;
+        "
+        "void main(void)
+        "{
+        "    color = vec4(0.0, 0.2, 0.0, 1.0) + vec4(0.2, 0.5, 0.4, 1.0) * abs(vs_fs_normal.z) + vec4(0.8, 0.9, 0.7, 1.0) * pow(abs(vs_fs_normal.z), 70.0);
+        "};
 
     vglAttachShaderSource(render_prog, GL_VERTEX_SHADER, render_vs);
     vglAttachShaderSource(render_prog, GL_FRAGMENT_SHADER, blue_fs);

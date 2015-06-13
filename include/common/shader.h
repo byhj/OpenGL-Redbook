@@ -19,6 +19,7 @@ public:
 	Shader(std::string shaderName):name(shaderName) {}
 	void init();
 	void attach(int type, char *filename);
+	void linkAttach();
 	void link();
 	void interfaceInfo();
 	void use(void) 
@@ -128,7 +129,14 @@ void Shader::link()
 		printf("%s linked successful\n",name.c_str());
 	
 }
+void Shader::linkAttach()
+{
+	program = glCreateProgram();
+	for (int i=0; i!=handles.size(); i++) {
+		glAttachShader(program, handles[i]); //将前面创建的shader添加到program
 
+	}
+}
 void Shader::interfaceInfo()
 {
 	std::cout << "--------------------" << name << " Interface------------------------" << std::endl; 
