@@ -32,11 +32,10 @@ namespace byhj
 
 	public:
 
-
 		virtual void v_Init() = 0;
 		virtual void v_Render() = 0;
 		virtual void v_Shutdown() = 0;
-		virtual void reshape(int w, int h)
+		virtual void v_reshape(int w, int h)
 		{
 			glViewport(0, 0, w, h);
 		}
@@ -106,7 +105,7 @@ namespace byhj
 		}
 		static void glut_reshape(int w, int h)
 		{
-			app->reshape(w, h);
+			app->v_reshape(w, h);
 		}
 		static void glut_keyboard(unsigned char key, int x, int y)
 		{

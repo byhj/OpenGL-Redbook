@@ -22,6 +22,14 @@ public:
 		init_vertexArray();
 		init_shader();
 	}
+	void v_reshape(int width, int height)
+	{
+		current_width = width;
+		current_height = height;
+
+		aspect = float(height) / float(width);
+		glViewport(0, 0, current_width, current_height);
+	}
 	void v_Render()
 	{
 
@@ -64,7 +72,7 @@ public:
 			vmath::rotate(t * 435.0f, 0.0f, 1.0f, 0.0f) *
 			vmath::rotate(t * 275.0f, 1.0f, 0.0f, 0.0f);
 		vmath::mat4 view_matrix = vmath::mat4::identity();
-		vmath::mat4 projection_matrix = vmath::frustum(-1.0f, 1.0f, GetAspect(), -GetAspect(), 1.0f, 40.f);
+		vmath::mat4 projection_matrix = vmath::frustum(-1.0f, 1.0f, aspect, -aspect, 1.0f, 40.f);
 
 		glUniformMatrix4fv(render_scene_uniforms.model_matrix, 1, GL_FALSE, model_matrix);
 		glUniformMatrix4fv(render_scene_uniforms.view_matrix, 1, GL_FALSE, view_matrix);
@@ -130,7 +138,8 @@ private:
 	GLint current_height;
 
 	VBObject object;
-
+	// Member variables
+	float aspect;
 };
 
 CALL_MAIN(ImageApp);

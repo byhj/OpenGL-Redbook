@@ -2,10 +2,8 @@
 #include <gl/freeglut.h>
 
 #include <common/shader.h>
+#include <common/mat.h>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <Shapes/Teapot.h>
 
@@ -31,11 +29,19 @@ void init(void)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); //设置颜色缓存为黑色
 }
 
-void reshape(int w, int h)
-{
-	glViewport(0, 0, w, h); //视口变换
 
+void reshape( int width, int height )
+{
+	glViewport( 0, 0, width, height );
+
+	GLfloat  aspect = GLfloat(width)/height;
+
+	mat4  projection = Perspective( 60.0, aspect, 5, 10 );
+	//     mat4  projection = Frustum( -3, 3, -3, 3, 5, 10 );
+	glUniformMatrix4fv(glGetUniformLocation( program, "P" ), 1, GL_TRUE, projection );
 }
+
+
 
 void display(void)
 {
@@ -47,13 +53,10 @@ void display(void)
 	glBindVertexArray(vao);  
 
 	float t = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(-0.2625f, -1.575f, -1.5f ) );
-		
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 proj = glm::perspective(60.0f, 1.0f, 0.1f, 100.0f);
-	glm::mat4 mvp =  proj * view * model;
+	mat4  modelview = Translate( -0.2625f, -1.575f, -1.0f );
+	modelview *= Translate( 0.0f, 0.0f, -7.5f );
+	glUniformMatrix4fv( glGetUniformLocation( program, "MV" ), 1, GL_TRUE, modelview );
 
-	glUniformMatrix4fv( glGetUniformLocation( program, "mvp" ), 1, GL_FALSE, &mvp[0][0]);
 	glPatchParameteri(GL_PATCH_VERTICES, NumTeapotVerticesPerPatch);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

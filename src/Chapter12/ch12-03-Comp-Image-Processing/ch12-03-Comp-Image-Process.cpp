@@ -35,26 +35,26 @@ public:
 		// Now bind the texture for rendering _from_
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, output_image);
+
 		// Clear, select the rendering program and draw a full screen quad
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(render_prog);
-		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
 		glutSwapBuffers();
 
 	}
 	void v_Shutdown()
 	{
 		glUseProgram(0);
-		glDeleteBuffers(1, &vbo);
-		glDeleteVertexArrays(1, &vao);
 	}
 private:
 	void init_buffer();
 	void init_vertexArray();
 	void init_shader();
 
-	GLuint vao, vbo;
+	GLuint  render_vao;
+	GLuint  render_vbo;
 
 	// Texture to process
 	GLuint  input_image;
@@ -83,23 +83,26 @@ static const float verts[] =
 
 void ImageApp::init_buffer()
 {
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 }
 
 void ImageApp::init_vertexArray()
 {
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	// This is the VAO containing the data to draw the quad (including its associated VBO)
+	glGenVertexArrays(1, &render_vao);
+	glBindVertexArray(render_vao);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindVertexArray(0);
+	glGenBuffers(1, &render_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, render_vbo);
+	static const float verts[] =
+	{
+		-1.0f, -1.0f, 0.5f, 1.0f,
+		1.0f, -1.0f, 0.5f, 1.0f,
+		1.0f,  1.0f, 0.5f, 1.0f,
+		-1.0f,  1.0f, 0.5f, 1.0f,
+	};
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
 
 }
 
@@ -117,7 +120,7 @@ void ImageApp::init_shader()
 	compute_prog = CompShader.GetProgram();
 
 	// Load a texture to process
-	input_image = vglLoadTexture("../../../media/textures/test.dds", 0, NULL);
+	input_image = vglLoadTexture("../../../media/textures/test1.dds", 0, NULL);
 
 	glGenTextures(1, &intermediate_image);
 	glBindTexture(GL_TEXTURE_2D, intermediate_image);

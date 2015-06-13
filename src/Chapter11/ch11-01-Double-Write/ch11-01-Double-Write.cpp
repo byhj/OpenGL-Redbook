@@ -20,6 +20,14 @@ public:
 		init_buffer();
 		init_shader();
 	}
+	void v_reshape(int width, int height)
+	{
+		current_width = width;
+		current_height = height;
+
+		aspect = float(height) / float(width);
+		glViewport(0, 0, current_width, current_height);
+	}
 	void v_Render()
 	{
 		float t;
@@ -40,7 +48,7 @@ public:
 		// Clear output image
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, output_texture_clear_buffer);
 		glBindTexture(GL_TEXTURE_2D, output_texture);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, GetScreenWidth(), GetScreenHeight(), GL_RGBA, GL_FLOAT, NULL);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, current_width, current_height, GL_RGBA, GL_FLOAT, NULL);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Bind output image for read-write
@@ -54,7 +62,7 @@ public:
 			vmath::rotate(t * 435.0f, 0.0f, 1.0f, 0.0f) *
 			vmath::rotate(t * 275.0f, 1.0f, 0.0f, 0.0f);
 		vmath::mat4 view_matrix = vmath::mat4::identity();
-		vmath::mat4 projection_matrix = vmath::frustum(-1.0f, 1.0f, GetAspect(), GetAspect(), 1.0f, 40.f);
+		vmath::mat4 projection_matrix = vmath::frustum(-1.0f, 1.0f,  aspect, -aspect, 1.0f, 40.f);
 
 		glUniformMatrix4fv(render_scene_uniforms.model_matrix, 1, GL_FALSE, model_matrix);
 		glUniformMatrix4fv(render_scene_uniforms.view_matrix, 1, GL_FALSE, view_matrix);
@@ -114,6 +122,9 @@ private:
 	// Program to resolve 
 	GLuint resolve_program;
 
+	GLint current_width;
+	GLint current_height;
+	float aspect;
 	// Full Screen Quad
 	GLuint  quad_vbo;
 	GLuint  quad_vao;

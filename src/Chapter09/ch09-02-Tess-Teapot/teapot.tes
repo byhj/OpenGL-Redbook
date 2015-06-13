@@ -2,7 +2,8 @@
 
 layout (quads, equal_spacing, ccw) in;
 
-uniform mat4 mvp;
+uniform mat4 MV;
+uniform mat4 P;
 
 //----------------------------------------------------------------------------
 
@@ -30,5 +31,5 @@ void main()
         }
     }
 
-    gl_Position = mvp * pos;
+    gl_Position = P * MV * pos;
 }
