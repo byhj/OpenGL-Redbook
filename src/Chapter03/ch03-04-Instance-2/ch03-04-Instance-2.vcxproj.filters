@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{1f714832-0945-45a9-9fad-6fc83519347a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="instance.frag">
@@ -23,6 +26,23 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="instance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\vbm.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
     <ClCompile Include="ch03-04-Instance-2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

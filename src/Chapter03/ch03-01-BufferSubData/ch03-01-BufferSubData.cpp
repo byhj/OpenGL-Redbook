@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 
 #include "ogl/oglApp.h"
+
 #include "triangle.h"
 
 class OGLRenderSystem : public byhj::Application

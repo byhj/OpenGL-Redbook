@@ -63,11 +63,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ch03-05-Instance-3.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
+    <ClCompile Include="ch03-04-Instance-3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="instance.frag" />
     <None Include="instance.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\vbm.h" />
+    <ClInclude Include="instance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

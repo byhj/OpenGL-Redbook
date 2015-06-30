@@ -41,7 +41,7 @@ public:
 		object.BindVertexArray();
 
 		//We change view by click the mosue
-		float t = glfwGetTime() / 1000.0f;
+		float t = float(GetTickCount() & 0x3FFFF) / float(0x3FFFF);
 
 		static float q = 0.0f;
 		static const glm::vec3 X(1.0f, 0.0f, 0.0f);
@@ -72,9 +72,9 @@ public:
 		for (int n = 0; n < 4; n++) 
 		{
 			model_matrix[n] = glm::scale(glm::mat4(1.0), glm::vec3(5.0f, 5.0f, 5.0f) )
-				            * glm::rotate(glm::mat4(1.0), t * 360.0f * 40.0f + float(n + 1) * 29.0f, glm::vec3(0.0f, 1.0f, 0.0f))
-				            * glm::rotate(glm::mat4(1.0), t * 360.0f * 20.0f + float(n + 1) * 35.0f, glm::vec3(0.0f, 0.0f, 1.0f)) 
-				            * glm::rotate(glm::mat4(1.0), t * 360.0f * 30.0f + float(n + 1) * 67.0f, glm::vec3(0.0f, 1.0f, 0.0f)) 
+				            * glm::rotate(glm::mat4(1.0), glm::radians(t * 360.0f * 40.0f + float(n + 1) * 29.0f), glm::vec3(0.0f, 1.0f, 0.0f))
+				            * glm::rotate(glm::mat4(1.0), glm::radians(t * 360.0f * 20.0f + float(n + 1) * 35.0f), glm::vec3(0.0f, 0.0f, 1.0f)) 
+				            * glm::rotate(glm::mat4(1.0), glm::radians(t * 360.0f * 30.0f + float(n + 1) * 67.0f), glm::vec3(0.0f, 1.0f, 0.0f)) 
 				            * glm::translate(glm::mat4(1.0), glm::vec3( (float)n * 10.0f - 15.0f, 0.0f, 0.0f) )
 				            * glm::scale(glm::mat4(1.0), glm::vec3(0.01f, 0.01f, 0.01f)) ;
 		}

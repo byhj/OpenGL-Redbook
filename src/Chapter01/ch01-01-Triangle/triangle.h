@@ -36,6 +36,7 @@ public:
 	void Shutdown()
 	{
 		glDeleteProgram(program);
+
 		glDeleteVertexArrays(1, &vao);
 		glDeleteBuffers(1, &vbo);
 	}
