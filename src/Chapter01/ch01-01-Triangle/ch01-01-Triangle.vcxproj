@@ -64,15 +64,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\oglFont.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch01-01-Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="text.frag" />
+    <None Include="text.vert" />
     <None Include="triangle.frag" />
     <None Include="triangle.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglCamera.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglFont.h" />
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\vbm.h" />
     <ClInclude Include="triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

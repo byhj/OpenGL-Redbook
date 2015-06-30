@@ -69,6 +69,9 @@
   <ItemGroup>
     <ClCompile Include="ch03-02-IndexDraw.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="triangle.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

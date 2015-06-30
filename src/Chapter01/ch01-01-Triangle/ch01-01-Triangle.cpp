@@ -2,6 +2,8 @@
 #include <glm/glm.hpp>
 
 #include "ogl/oglApp.h"
+#include "ogl/oglFont.h"
+
 #include "triangle.h"
 
 class OGLRenderSystem : public byhj::Application
@@ -17,13 +19,18 @@ public:
 	void v_Init()
 	{
 		triangle.Init();
+		m_font.Init(GetWidth(), GetHeight());
 	}
 	void v_Render()
 	{
+
 		static const glm::vec4 bgColor(0.2f, 0.4f, 0.5f, 1.0f);
 		glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
 
 		triangle.Render();
+
+		m_font.Render(hardwardInfo, 10.0f, GetHeight()-25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+	    m_font.Render(softInfo,     10.0f, GetHeight()-50.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
 	}
 	void v_Shutdown()
 	{
@@ -31,6 +38,7 @@ public:
 	}
 
 private:
+	OGLFont  m_font;
 	Triangle triangle;
 };
 

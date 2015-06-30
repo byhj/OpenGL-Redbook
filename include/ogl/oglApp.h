@@ -75,6 +75,17 @@ namespace byhj {
 			std::cout << "GL Version (integer) : " << major << "." << minor << std::endl;  
 			std::cout << "GLSL Version : " << glslVersion << std::endl;    
 			std::cout << "------------------------------------------------------------------------------" << std::endl;
+			const unsigned char *st = renderer;
+			
+			hardwardInfo = "VideoCard: ";
+            while (*st != '\0')
+				hardwardInfo += *st++;
+			softInfo = "VideoDrive: ";
+
+			st = version;
+			while (*st != '\0')
+				softInfo  += *st++;
+
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major); //opengl 4.3
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //using opengl core file
@@ -119,6 +130,14 @@ namespace byhj {
 		{
 			return static_cast<float>(g_ScreenWidth) / static_cast<float>(g_ScreenHeight);
 		}
+		int GetWidth()
+		{
+			return g_ScreenWidth;
+		}
+		int GetHeight()
+		{
+			return g_ScreenHeight;
+		}
 		int GetScreenWidth()
 		{
 			return g_ScreenWidth;
@@ -127,6 +146,8 @@ namespace byhj {
 		{
 			return g_ScreenHeight;
 		}
+		std::string hardwardInfo;
+		std::string softInfo;
 	protected:
 
 	static byhj::Application *app;
@@ -150,4 +171,4 @@ int main(int argc, const char **argv)               \
 }
 
 
-#endif  //SB6_H
+#endif  

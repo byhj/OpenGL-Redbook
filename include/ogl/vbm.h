@@ -2,7 +2,6 @@
 #define __VBM_H__
 
 #include <GL/glew.h>
-#include <GL/freeglut.h>
 
 typedef struct VBM_HEADER_t
 {

@@ -1,5 +1,7 @@
 #include "vbm.h"
+
 #include <cstdio>
+#include <cstring>
 
 VBObject::VBObject(void)
     : m_vao(0),

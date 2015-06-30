@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OGLCAMERA_H
+#define OGLCAMERA_H
 
 // Std. Includes
 #include <vector>
@@ -133,3 +134,5 @@ private:
             this->Up    = glm::normalize(glm::cross(this->Right, this->Front));
     }
 };
+
+#endif
