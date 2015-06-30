@@ -70,6 +70,11 @@
     <None Include="triangle.frag" />
     <None Include="triangle.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="triangle.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
