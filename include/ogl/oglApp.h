@@ -27,7 +27,7 @@ namespace byhj {
 	class Application 
 	{
 	public:
-		Application() {}
+		Application():fps(0) {}
 		virtual ~Application() {}
 
 		virtual void v_Run(byhj::Application *the_app)
@@ -98,6 +98,23 @@ namespace byhj {
 			while (!glfwWindowShouldClose(window)) 
 			{
 				glfwPollEvents();
+				static double currentTime = 0.0f;
+				static double totalTime = 0.0;
+				static int count = 0;
+
+				static double lastTime = glfwGetTime();
+				currentTime = glfwGetTime();
+
+				totalTime += currentTime - lastTime; 
+				if (totalTime > 1.0)
+				{
+					fps = count;
+					count = 0;
+					totalTime = 0.0f;
+				}
+				++count;
+				lastTime = currentTime;
+			
 				v_Render();
 				glfwSwapBuffers(window);
 			}
@@ -148,6 +165,7 @@ namespace byhj {
 		}
 		std::string hardwardInfo;
 		std::string softInfo;
+		int fps;
 	protected:
 
 	static byhj::Application *app;

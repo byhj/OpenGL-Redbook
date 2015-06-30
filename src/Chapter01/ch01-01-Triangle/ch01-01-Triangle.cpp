@@ -28,9 +28,10 @@ public:
 		glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
 
 		triangle.Render();
+		std::string fpsStr = "FPS:";
+		fpsStr += std::to_string(fps);
+		m_font.Render(fpsStr, 10.0f, GetHeight()-25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
 
-		m_font.Render(hardwardInfo, 10.0f, GetHeight()-25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-	    m_font.Render(softInfo,     10.0f, GetHeight()-50.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
 	}
 	void v_Shutdown()
 	{

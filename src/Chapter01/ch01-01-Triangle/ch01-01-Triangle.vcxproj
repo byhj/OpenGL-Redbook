@@ -69,8 +69,6 @@
     <ClCompile Include="ch01-01-Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="text.frag" />
-    <None Include="text.vert" />
     <None Include="triangle.frag" />
     <None Include="triangle.vert" />
   </ItemGroup>

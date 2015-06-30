@@ -32,12 +32,6 @@
     <None Include="triangle.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="text.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="text.vert">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="triangle.h">
