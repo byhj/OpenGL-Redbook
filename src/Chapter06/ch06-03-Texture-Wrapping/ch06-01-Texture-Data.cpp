@@ -2,8 +2,7 @@
 #include <glm/glm.hpp>
 
 #include "ogl/oglApp.h"
-
-#include "triangle.h"
+#include "Texture.h"
 
 class OGLRenderSystem : public byhj::Application
 {
@@ -13,28 +12,29 @@ public:
 
 	void v_InitInfo()
 	{
-		windowInfo.title += "Triangle";
+		windowInfo.title += "Texture";
 	}
 	void v_Init()
 	{
-		triangle.Init();
+		texture.Init();
 	}
 	void v_Render()
 	{
-
 		static const glm::vec4 bgColor(0.2f, 0.4f, 0.5f, 1.0f);
 		glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
 
-		triangle.Render();
+		texture.Render();
 	}
 	void v_Shutdown()
 	{
-		triangle.Shutdown();
+		texture.Shutdown();
 	}
-
+	void v_Keyboard(GLFWwindow * window, int key, int scancode, int action, int mode)
+	{
+		texture.init_keyboard(window, key,scancode, action, mode);
+	}
 private:
-	Triangle triangle;
+	Texture texture;
 };
 
 CALL_MAIN(OGLRenderSystem);
-

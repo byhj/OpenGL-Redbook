@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="triangle.vert">
+    <None Include="texture.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="triangle.frag">
+    <None Include="texture.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -26,5 +26,13 @@
     <ClCompile Include="ch06-05-Texture-volume.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\oglRandom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -64,11 +64,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="triangle.frag" />
-    <None Include="triangle.vert" />
+    <None Include="texture.frag" />
+    <None Include="texture.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch06-02-Texture-Image.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

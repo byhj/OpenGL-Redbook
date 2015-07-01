@@ -15,16 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch06-03-Texture-Wrapping.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ch06-01-Texture-Data.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="triangle.frag">
+    <None Include="texture.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="triangle.vert">
+    <None Include="texture.vert">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
