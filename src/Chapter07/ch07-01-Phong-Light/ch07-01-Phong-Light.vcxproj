@@ -63,11 +63,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch07-01-Phong-Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="light.frag" />
     <None Include="light.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\vbm.h" />
+    <ClInclude Include="light.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

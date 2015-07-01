@@ -24,10 +24,18 @@
     <None Include="pointsprites.frag">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\..\..\media\textures\sprite.tga">
+      <Filter>Header Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch06-09-Texture-Sprites.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

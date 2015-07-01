@@ -63,12 +63,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\..\media\textures\sprite.tga" />
     <None Include="pointsprites.frag" />
     <None Include="pointsprites.vert" />
     <None Include="pointsprites2.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch06-09-Texture-Sprites.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
