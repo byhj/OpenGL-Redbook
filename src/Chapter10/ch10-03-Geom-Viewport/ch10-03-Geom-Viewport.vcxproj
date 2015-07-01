@@ -63,12 +63,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch10-03-Geom-Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="view.frag" />
     <None Include="view.geom" />
     <None Include="view.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\vbm.h" />
+    <ClInclude Include="triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

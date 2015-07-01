@@ -23,7 +23,7 @@ public:
 		static const glm::vec4 bgColor(0.2f, 0.4f, 0.5f, 1.0f);
 		glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
 
-		triangle.Render();
+		triangle.Render(GetAspect());
 	}
 	void v_Shutdown()
 	{

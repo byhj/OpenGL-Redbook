@@ -71,6 +71,9 @@
     <None Include="quad.tes" />
     <None Include="quad.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="triangle.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

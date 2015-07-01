@@ -70,6 +70,9 @@
     <None Include="simple.frag" />
     <None Include="simple.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="triangle.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

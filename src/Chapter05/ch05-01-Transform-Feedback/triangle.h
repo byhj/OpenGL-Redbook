@@ -7,15 +7,17 @@
 #include <iostream>
 
 #include "ogl/oglShader.h"
+#include "ogl/vbm.h"
+#include "ogl/vmath.h"
 
-const int VertexCount = 6;
+const int point_count = 5000;
+static unsigned int seed = 0x13371337;
 
 class Triangle
 {
 
 public:
-	Triangle():vao(-1), vbo(-1), ibo(-1), program(-1), m_VertexCount(0), 
-	           m_IndexCount(0) , TriangleShader("Triangle Shader") {}
+	Triangle(){}
 	~Triangle() {}
 
 public:
@@ -29,49 +31,74 @@ public:
 	}
 
 	/////////////////////////////Render/////////////////////////////
-	void Render()
+	void Render(float aspect)
 	{
-	    //Bind the vao, which manage status we when to render
-		glUseProgram(program);
-		glBindVertexArray(vao);  
+		static int frame_count = 0;
+		float t = glfwGetTime()/ 100.0f;
+		static float q = 0.0f;
+		static const vmath::vec3 X(1.0f, 0.0f, 0.0f);
+		static const vmath::vec3 Y(0.0f, 1.0f, 0.0f);
+		static const vmath::vec3 Z(0.0f, 0.0f, 1.0f);
 
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0, 0.0, -5.0));
-		glm::mat4 view  = glm::lookAt(glm::vec3(0.0, 0.0, 5.0), glm::vec3(0.0, 0.0, -4.0), glm::vec3(0.0, 1.0, 0.0));
-		glm::mat4 proj  = glm::perspective(45.0f, 1.0f, 1.0f, 1000.0f);
-		glm::mat4 mvp   = proj * view;
+		vmath::mat4 projection_matrix(vmath::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 5000.0f) * vmath::translate(0.0f, 0.0f, -100.0f));
+		vmath::mat4 model_matrix(vmath::scale(0.3f) *
+			                     vmath::rotate(t * 360.0f, 0.0f, 1.0f, 0.0f) *
+			                     vmath::rotate(t * 360.0f * 3.0f, 0.0f, 0.0f, 1.0f));
 
-		////////////////Update the model matrix when draw the every triangle///////////////
-		
-		// DrawArrays
-		glUniformMatrix4fv(uniform.mvp_loc, 1, GL_FALSE, glm::value_ptr(mvp) );
-		glUniformMatrix4fv(uniform.model_loc, 1, GL_FALSE, glm::value_ptr(model) );
-		glDrawArrays(GL_TRIANGLES, 0, 3); 
+		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-		// DrawElements
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-1.0, 0.0, -5.0));
-		glUniformMatrix4fv(uniform.model_loc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL);
+		glEnable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
 
-		// DrawElementsBaseVertex
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(1.0, 0.0, -5.0));
-		glUniformMatrix4fv(uniform.model_loc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawElementsBaseVertex(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, NULL, 0);
-		//the indices[i] + basevertex(the last element)
+		glUseProgram(render_prog);
+		glUniformMatrix4fv(render_model_matrix_loc, 1, GL_FALSE, model_matrix);
+		glUniformMatrix4fv(render_projection_matrix_loc, 1, GL_FALSE, projection_matrix);
 
-		//DrawArraysInstanced
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(3.0, 0.0, -5.0));
-		glUniformMatrix4fv(uniform.model_loc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 1);
+		glBindVertexArray(render_vao);
 
-		glUseProgram(0);
-		glBindVertexArray(0);  
+		glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, geometry_vbo);
+
+		glBeginTransformFeedback(GL_TRIANGLES);
+		object.Render();
+		glEndTransformFeedback();
+
+		glUseProgram(update_prog);
+		model_matrix = vmath::mat4::identity();
+		glUniformMatrix4fv(model_matrix_loc, 1, GL_FALSE, model_matrix);
+		glUniformMatrix4fv(projection_matrix_loc, 1, GL_FALSE, projection_matrix);
+		glUniform1i(triangle_count_loc, object.GetVertexCount() / 3);
+
+		if (t > q)
+		{
+			glUniform1f(time_step_loc, (t - q) * 2000.0f);
+		}
+
+		q = t;
+
+		if ((frame_count & 1) != 0)
+		{
+			glBindVertexArray(vao[1]);
+			glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, vbo[0]);
+		}
+		else
+		{
+			glBindVertexArray(vao[0]);
+			glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, vbo[1]);
+		}
+
+		glBeginTransformFeedback(GL_POINTS);
+		glDrawArrays(GL_POINTS, 0, std::min(point_count, (frame_count >> 3)));
+		glEndTransformFeedback();
+
+		glBindVertexArray(0);
+
+		frame_count++;
 	}
 
 	void Shutdown()
 	{
-		glDeleteProgram(program);
-		glDeleteVertexArrays(1, &vao);
-		glDeleteBuffers(1, &vbo);
+
 	}
 
 private:
@@ -81,91 +108,163 @@ private:
 	void init_shader();
 
 private:
+	OGLShader baseShader, FbShader;
 
-    struct Uniform
-	{
-		GLuint model_loc;
-		GLuint mvp_loc;
-	};
-	Uniform uniform;
+	// Member variables
+	float aspect;
+	GLuint update_prog;
+	GLuint vao[2];
+	GLuint vbo[2];
+	GLuint xfb;
 
-	GLuint vao, vbo, ibo, program;
-	OGLShader TriangleShader;
-	int m_VertexCount;
-	int m_IndexCount;
+	GLuint render_prog;
+	GLuint geometry_vbo;
+	GLuint render_vao;
+	GLint render_model_matrix_loc;
+	GLint render_projection_matrix_loc;
+
+	GLuint geometry_tex;
+
+	GLuint geometry_xfb;
+	GLuint particle_xfb;
+
+	GLint model_matrix_loc;
+	GLint projection_matrix_loc;
+	GLint triangle_count_loc;
+	GLint time_step_loc;
+
+	VBObject object;
 };
 
-static const GLfloat VertexData[] = 
-{  
-	-1.0f, -1.0f, 0.0f, 1.0f,
-	 1.0f, -1.0f, 0.0f, 1.0f,
-	 1.0f,  1.0f, 0.0f, 1.0f,
-};
-static const GLsizeiptr VertexSize = sizeof(VertexData);
-
-static const GLfloat ColorData[] = 
-{  
-	1.0f, 1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 0.0f, 1.0f,
-	1.0f, 0.0f, 1.0f, 1.0f,
-	0.0f, 1.0f, 1.0f, 1.0f                                                   //white
-};
-static const GLsizeiptr ColorSize = sizeof(ColorData);
-
-static const GLushort IndexData[] =
-{
-	0, 1, 2 
-};
-static const GLsizeiptr IndexSize = sizeof(IndexData);
 
 void Triangle::init_buffer()
 {
-
-	glGenBuffers(1, &vbo); 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, VertexSize + ColorSize, NULL, GL_STATIC_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, VertexSize, VertexData);
-	glBufferSubData(GL_ARRAY_BUFFER, VertexSize, ColorSize, ColorData);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, IndexSize, IndexData, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	object.LoadFromVBM("../../../media/objects/armadillo_low.vbm", 0, 1, 2);
 }
 
 void Triangle::init_vertexArray()
 {
-	glGenVertexArrays(1, &vao);  
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-
-	//Set the shader data interface
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(VertexSize + NULL) );
-
-	glBindVertexArray(0);
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
 }
 
 
+static inline float random_float()
+{
+	float res;
+	unsigned int tmp;
+
+	seed *= 16807;
+
+	tmp = seed ^ (seed >> 4) ^ (seed << 15);
+
+	*((unsigned int *) &res) = (tmp >> 9) | 0x3F800000;
+
+	return (res - 1.0f);
+}
+
+static vmath::vec3 random_vector(float minmag = 0.0f, float maxmag = 1.0f)
+{
+	vmath::vec3 randomvec(random_float() * 2.0f - 1.0f, random_float() * 2.0f - 1.0f, random_float() * 2.0f - 1.0f);
+	randomvec = normalize(randomvec);
+	randomvec *= (random_float() * (maxmag - minmag) + minmag);
+
+	return randomvec;
+}
+
+
+static inline int min(int a, int b)
+{
+	return a < b ? a : b;
+}
+
 void Triangle::init_shader()
 {
-	TriangleShader.init();
-	TriangleShader.attach(GL_VERTEX_SHADER, "triangle.vert");
-	TriangleShader.attach(GL_FRAGMENT_SHADER, "triangle.frag");
-	TriangleShader.link();
-	program = TriangleShader.GetProgram();
-	uniform.mvp_loc   = glGetUniformLocation(program, "mvp");
-	uniform.model_loc = glGetUniformLocation(program, "model");
+///////////////////////////Update Screen///////////////////////////
+	FbShader.init();
+	FbShader.attach(GL_VERTEX_SHADER, "update.vert");
+	FbShader.attach(GL_FRAGMENT_SHADER, "update.frag");
+	FbShader.linkAttach();
+	update_prog = FbShader.GetProgram();
+
+	static const char * varyings[] =
+	{
+		"position_out", "velocity_out"
+	};
+	glTransformFeedbackVaryings(update_prog, 2, varyings, GL_INTERLEAVED_ATTRIBS);
+	glLinkProgram(update_prog);
+	glUseProgram(update_prog);
+	model_matrix_loc = glGetUniformLocation(update_prog, "model_matrix");
+	projection_matrix_loc = glGetUniformLocation(update_prog, "projection_matrix");
+	triangle_count_loc = glGetUniformLocation(update_prog, "triangle_count");
+	time_step_loc = glGetUniformLocation(update_prog, "time_step");
+
+	////////////////////Base Scene//////////////////////////////////
+	baseShader.init();
+	baseShader.attach(GL_VERTEX_SHADER, "base.vert");
+	baseShader.attach(GL_FRAGMENT_SHADER, "base.frag");
+	baseShader.linkAttach();
+	render_prog = baseShader.GetProgram();
+
+	static const char * varyings2[] =
+	{
+		"world_space_position"
+	};
+
+	glTransformFeedbackVaryings(render_prog, 1, varyings2, GL_INTERLEAVED_ATTRIBS);
+
+	glLinkProgram(render_prog);
+	glUseProgram(render_prog);
+
+	render_model_matrix_loc = glGetUniformLocation(render_prog, "model_matrix");
+	render_projection_matrix_loc = glGetUniformLocation(render_prog, "projection_matrix");
+
+	glGenVertexArrays(2, vao);
+	glGenBuffers(2, vbo);
+
+	for (INT i = 0; i < 2; i++)
+	{
+		glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, vbo[i]);
+		glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, point_count * (sizeof(vmath::vec4) + sizeof(vmath::vec3)), NULL, GL_DYNAMIC_COPY);
+		if (i == 0)
+		{
+			struct buffer_t 
+			{
+				vmath::vec4 position;
+				vmath::vec3 velocity;
+			} * buffer = (buffer_t *)glMapBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, GL_WRITE_ONLY);
+
+			for (int j = 0; j < point_count; j++)
+			{
+				buffer[j].velocity = random_vector();
+				buffer[j].position = vmath::vec4(buffer[j].velocity + vmath::vec3(-0.5f, 40.0f, 0.0f), 1.0f);
+				buffer[j].velocity = vmath::vec3(buffer[j].velocity[0], buffer[j].velocity[1] * 0.3f, buffer[j].velocity[2] * 0.3f);
+			}
+
+			glUnmapBuffer(GL_TRANSFORM_FEEDBACK_BUFFER);
+		}
+
+		glBindVertexArray(vao[i]);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[i]);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(vmath::vec4) + sizeof(vmath::vec3), NULL);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vmath::vec4) + sizeof(vmath::vec3), (GLvoid *)sizeof(vmath::vec4));
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+	}
+
+	glGenBuffers(1, &geometry_vbo);
+	glGenTextures(1, &geometry_tex);
+	glBindBuffer(GL_TEXTURE_BUFFER, geometry_vbo);
+	glBufferData(GL_TEXTURE_BUFFER, 1024 * 1024 * sizeof(vmath::vec4), NULL, GL_DYNAMIC_COPY);
+	glBindTexture(GL_TEXTURE_BUFFER, geometry_tex);
+	glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, geometry_vbo);
+
+	glGenVertexArrays(1, &render_vao);
+	glBindVertexArray(render_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, geometry_vbo);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(0);
 }
 
 
 #endif
-
 

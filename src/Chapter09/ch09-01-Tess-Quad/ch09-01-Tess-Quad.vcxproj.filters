@@ -33,4 +33,9 @@
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

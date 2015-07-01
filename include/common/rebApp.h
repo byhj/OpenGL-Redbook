@@ -1,7 +1,6 @@
 ﻿#ifndef STEPAPP_H
 #define STEPAPP_H
 
-#include "glDebug.h"
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <iostream>

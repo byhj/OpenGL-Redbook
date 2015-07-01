@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch10-02-Geom-Feedback.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="sort.vert">
       <Filter>Resource Files</Filter>
     </None>
@@ -32,5 +27,21 @@
     <None Include="base.frag">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\vbm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ch10-02-Geom-Feedback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

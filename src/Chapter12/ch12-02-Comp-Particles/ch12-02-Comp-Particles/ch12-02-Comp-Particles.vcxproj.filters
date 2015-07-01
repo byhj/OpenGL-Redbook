@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch12-02-Comp-Particles.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="simple.frag">
       <Filter>Resource Files</Filter>
     </None>
@@ -29,5 +24,15 @@
     <None Include="simple.comp">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch12-02-Comp-Particles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

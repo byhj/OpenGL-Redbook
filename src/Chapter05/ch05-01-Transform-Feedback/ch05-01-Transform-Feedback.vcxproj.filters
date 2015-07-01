@@ -32,9 +32,15 @@
     <ClInclude Include="triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ogl\vbm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch5-01-Transform-Feedback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
