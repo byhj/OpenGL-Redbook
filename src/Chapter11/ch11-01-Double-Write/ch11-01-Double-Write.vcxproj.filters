@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch11-01-Double-Write.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vbm.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ch11-01-Double-Write.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,6 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vbm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

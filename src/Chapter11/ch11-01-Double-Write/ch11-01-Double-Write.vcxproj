@@ -73,6 +73,7 @@
     <None Include="blit.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="triangle.h" />
     <ClInclude Include="vbm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

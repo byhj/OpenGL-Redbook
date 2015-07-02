@@ -1,314 +1,37 @@
-#include <common/shader.h>
-#include <GL/freeglut.h>
-#include <common/vmath.h>
-#include <common/vbm.cpp>
-#include <iostream>
-#include <common/glDebug.h>
+#include <gl/glew.h>
+#include <glm/glm.hpp>
 
-using namespace vmath;
+#include "ogl/oglApp.h"
+#include "light.h"
 
-#define FRUSTUM_DEPTH       800.0f
-#define DEPTH_TEXTURE_SIZE  1024
-
-GLint current_width;
-GLint current_height;
-VBObject g_object;
-
-Shader ObjectShader("Object Shader");
-Shader ShadowShader("Shadow Shader");
-GLuint ground_vao, ground_vbo;
-GLuint base_prog;
-
-// Member variables
-float aspect;
-// Program to render from the light's position
-GLuint shadow_prog;
-GLuint shadow_mvp_loc;
-GLuint depth_fbo, depth_texture;
-
-
-struct 
+class OGLRenderSystem : public byhj::Application
 {
-   GLuint model;
-   GLuint view;
-   GLuint proj;
-   GLuint shadow_matrix;
-   GLuint lightPos;
-   GLuint mat_ambient;
-   GLuint mat_diffuse;
-   GLuint mat_specular;
-   GLuint mat_specular_power;
-}base_uniform_loc;
+public:
+	OGLRenderSystem() {}
+	~OGLRenderSystem() {}
 
-
-
-void init_buffer();
-void init_shader();
-void init_texture();
-void init_fbo();
-void init_vertexArray();
-void DrawScene(bool depth_only);
-
-void init()
-{
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClearDepth(1.0f);
-	init_shader();
-	init_texture();
-	init_fbo();
-	init_buffer();
-	init_vertexArray();
-
-}
-
-void display()
-{
-	float time = glutGet(GLUT_ELAPSED_TIME) / 100000.0f;
-
-	float t = float(GetTickCount() & 0xFFFF) / float(0xFFFF);
-	static float q = 0.0f;
-	static const vec3 X(1.0f, 0.0f, 0.0f);
-	static const vec3 Y(0.0f, 1.0f, 0.0f);
-	static const vec3 Z(0.0f, 0.0f, 1.0f);
-		//CheckDebugLog();  
-	//We change the light pos every frame
-	vec3 light_position = vec3(sinf(t * 6.0f * 3.141592f) * 300.0f, 200.0f, cosf(t * 4.0f * 3.141592f) * 100.0f + 250.0f);
-	// Setup
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-
-	// Matrices for rendering the scene
-	mat4 scene_model_matrix = rotate(t * 720.0f, Y);
-	mat4 scene_view_matrix = translate(0.0f, 0.0f, -300.0f);
-	mat4 scene_projection_matrix = frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, FRUSTUM_DEPTH);
-	const mat4 scale_bias_matrix = mat4(vec4(0.5f, 0.0f, 0.0f, 0.0f),
-		                                vec4(0.0f, 0.5f, 0.0f, 0.0f),
-		                                vec4(0.0f, 0.0f, 0.5f, 0.0f),
-		                                vec4(0.5f, 0.5f, 0.5f, 1.0f)
-										);
-
-	// Matrices used when rendering from the light's position
-	mat4 light_view_matrix = lookat(light_position, vec3(0.0f), Y);
-	mat4 light_projection_matrix(frustum(-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, FRUSTUM_DEPTH));
-
-	// Now we render from the light's position into the depth buffer.
-	// Select the appropriate program
-	glUseProgram(shadow_prog);
-	glUniformMatrix4fv(shadow_mvp_loc, 1, GL_FALSE, light_projection_matrix * light_view_matrix * scene_model_matrix);
-	
-	//Bind the framebuffer data to dpeth texture
-	glBindFramebuffer(GL_FRAMEBUFFER, depth_fbo);
-	glViewport(0, 0, DEPTH_TEXTURE_SIZE, DEPTH_TEXTURE_SIZE);
-
-	// Clear
-	glClearDepth(1.0f);
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	// Enable polygon offset to resolve depth-fighting isuses
-	glEnable(GL_POLYGON_OFFSET_FILL);
-	glPolygonOffset(2.0f, 4.0f);
-
-	// Draw from the light's point of view, we draw the depth to fbo
-	DrawScene(true);
-
-	glDisable(GL_POLYGON_OFFSET_FILL);
-
-
-	// Restore the default framebuffer and field of view
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, current_width, current_height);
-	// Now render from the viewer's position
-
-	glUseProgram(base_prog);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	
-	// Setup all the matrices
-	glUniformMatrix4fv(base_uniform_loc.model, 1, GL_FALSE, scene_model_matrix);
-	glUniformMatrix4fv(base_uniform_loc.view, 1, GL_FALSE, scene_view_matrix);
-	glUniformMatrix4fv(base_uniform_loc.proj, 1, GL_FALSE, scene_projection_matrix);
-	glUniformMatrix4fv(base_uniform_loc.shadow_matrix, 1, GL_FALSE, scale_bias_matrix * light_projection_matrix * light_view_matrix);
-	glUniform3fv(      base_uniform_loc.lightPos, 1, light_position);
-
-	// Bind the depth texture
-	glBindTexture(GL_TEXTURE_2D, depth_texture);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-    DrawScene(false);
-
-	glutSwapBuffers();
-	glutPostRedisplay();
-}
-
-void DrawScene(bool depth_only)
-{
-	// Set material properties for the object
-	if (!depth_only)
+	void v_InitInfo()
 	{
-		glUniform3fv(base_uniform_loc.mat_ambient, 1, vec3(0.1f, 0.0f, 0.2f));
-		glUniform3fv(base_uniform_loc.mat_diffuse, 1, vec3(0.3f, 0.2f, 0.8f));
-		glUniform3fv(base_uniform_loc.mat_specular, 1, vec3(1.0f, 1.0f, 1.0f));
-		glUniform1f( base_uniform_loc.mat_specular_power, 25.0f);
+		windowInfo.title += "Light";
+	}
+	void v_Init()
+	{
+		texture.Init();
+	}
+	void v_Render()
+	{
+		static const glm::vec4 bgColor(0.2f, 0.4f, 0.5f, 1.0f);
+		glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
+
+		texture.Render(GetWidth(), GetHeight(), GetAspect());
+	}
+	void v_Shutdown()
+	{
+		texture.Shutdown();
 	}
 
-	// Draw the object
-	g_object.Render();
-
-	// Set material properties for the ground
-	if (!depth_only)
-	{
-		glUniform3fv(base_uniform_loc.mat_ambient, 1, vec3(0.1f, 0.1f, 0.1f));
-		glUniform3fv(base_uniform_loc.mat_diffuse, 1, vec3(0.1f, 0.5f, 0.1f));
-		glUniform3fv(base_uniform_loc.mat_specular, 1, vec3(0.1f, 0.1f, 0.1f));
-		glUniform1f( base_uniform_loc.mat_specular_power, 3.0f);
-	}
-
-	// Draw the ground
-	glBindVertexArray(ground_vao);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	glBindVertexArray(0);
-}
-
-void shutdown()
-{
-	glUseProgram(0);
-	glDeleteProgram(shadow_prog);
-	glDeleteProgram(base_prog);
-	glDeleteBuffers(1, &ground_vbo);
-	glDeleteVertexArrays(1, &ground_vao);
-}
-
-void reshape(int width, int height)
-{
-	current_width = width;
-	current_height = width;
-
-	aspect = float(height) / float(width);
-}
-
-int main(int argc,char ** argv)
-{
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);//The display mode is necessary
-	glutInitWindowPosition(300, 0);
-	glutInitWindowSize(1024, 768);
-	//glutInitContextVersion(4, 3);
-	//glutInitContextProfile(GLUT_CORE_PROFILE);
-
-	glutCreateWindow("PointSprites");
-	GLenum res = glewInit();  //glewInit() use first in order using other function
-	if (res != GLEW_OK) 
-		std::cout << "Init the glew Error" << glewGetErrorString(res) << std::endl;
-
-	init();
-	glutDisplayFunc(display);
-	glutReshapeFunc(reshape);
-	glutMainLoop();
-
-	shutdown();
-	return 0;
-}
-
-// Upload geometry for the ground plane
-static const float ground_vertices[] =
-{
-	-500.0f, -50.0f, -500.0f, 1.0f,
-	-500.0f, -50.0f,  500.0f, 1.0f,
-	 500.0f, -50.0f,  500.0f, 1.0f,
-	 500.0f, -50.0f, -500.0f, 1.0f,
+private:
+	Light texture;
 };
 
-static const float ground_normals[] =
-{
-	0.0f, 1.0f, 0.0f,
-	0.0f, 1.0f, 0.0f,
-	0.0f, 1.0f, 0.0f,
-	0.0f, 1.0f, 0.0f
-};
-
-void init_buffer()
-{
-	//set the ground data
-	glGenBuffers(1, &ground_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(ground_vertices) + sizeof(ground_normals), NULL, GL_STATIC_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(ground_vertices), ground_vertices);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(ground_vertices), sizeof(ground_normals), ground_normals);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	g_object.LoadFromVBM("../../../media/objects/armadillo_low.vbm", 0, 1, 2);
-}
-
-void init_vertexArray()
-{	
-	glGenVertexArrays(1, &ground_vao);
-	glBindVertexArray(ground_vao);
-
-	glBindBuffer(GL_ARRAY_BUFFER, ground_vbo);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid *)sizeof(ground_vertices));
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-
-	glBindVertexArray(0);
-}
-
-void init_shader()
-{
-
-	ShadowShader.init();
-	ShadowShader.attach(GL_VERTEX_SHADER, "shadow.vert");
-	ShadowShader.attach(GL_FRAGMENT_SHADER, "shadow.frag");
-	ShadowShader.link();
-	ShadowShader.interfaceInfo();
-	shadow_prog = ShadowShader.GetProgram();
-	shadow_mvp_loc = glGetUniformLocation(shadow_prog, "mvp");
-
-
-	ObjectShader.init();
-	ObjectShader.attach(GL_VERTEX_SHADER, "base.vert");
-	ObjectShader.attach(GL_FRAGMENT_SHADER, "base.frag");
-	ObjectShader.link();
-	ObjectShader.interfaceInfo();
-	base_prog = ObjectShader.GetProgram();
-	base_uniform_loc.model              = glGetUniformLocation(base_prog, "model");
-	base_uniform_loc.view               = glGetUniformLocation(base_prog, "view");
-	base_uniform_loc.proj               = glGetUniformLocation(base_prog, "proj");
-	base_uniform_loc.shadow_matrix      = glGetUniformLocation(base_prog, "shadow_matrix");
-	base_uniform_loc.lightPos           = glGetUniformLocation(base_prog, "lightPos");
-	base_uniform_loc.mat_ambient        = glGetUniformLocation(base_prog, "mat_ambient");
-	base_uniform_loc.mat_diffuse        = glGetUniformLocation(base_prog, "mat_diffuse");
-	base_uniform_loc.mat_specular       = glGetUniformLocation(base_prog, "mat_specular");
-	base_uniform_loc.mat_specular_power = glGetUniformLocation(base_prog, "mat_specular_power");
-
-	//set the depth texture to unit 0 
-	glUseProgram(base_prog);
-	glUniform1i(glGetUniformLocation(base_prog, "depth_texture"), 0);
-}
-
-void init_texture()
-{
-	// Create a depth texture
-	glGenTextures(1, &depth_texture);
-	glBindTexture(GL_TEXTURE_2D, depth_texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, DEPTH_TEXTURE_SIZE, DEPTH_TEXTURE_SIZE, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void init_fbo()
-{
-	//Create a Fbo, render the depth texture
-	glGenFramebuffers(1, &depth_fbo);
-	glBindFramebuffer(GL_FRAMEBUFFER, depth_fbo);
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depth_texture, 0);
-
-	//We don't need the color buffer
-    glDrawBuffer(GL_NONE);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
+CALL_MAIN(OGLRenderSystem);
