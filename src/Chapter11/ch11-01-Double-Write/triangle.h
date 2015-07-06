@@ -24,9 +24,7 @@ public:
 	void Init()
 	{
        init_buffer();
-	   init_vertexArray();
 	   init_shader();
-
 	}
 
 	/////////////////////////////Render/////////////////////////////
@@ -52,7 +50,6 @@ public:
 		// Bind output image for read-write
 		glBindImageTexture(1, output_texture, 0, GL_FALSE, 0, GL_READ_WRITE, GL_RGBA32F);
 	
-
 
 		// Render
 		glUseProgram(render_scene_prog);
@@ -80,12 +77,8 @@ public:
 		glBindVertexArray(quad_vao);
 		glUseProgram(resolve_program);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		static bool flag = true;
-		if (flag)
-		{
-			CheckDebugLog();
-			flag = false;
-		}
+
+		CheckDebugLog();
 	}
 
 	void Shutdown()
@@ -141,18 +134,18 @@ void Triangle::init_shader()
 	AppShader.attach(GL_VERTEX_SHADER, "base.vert");
 	AppShader.attach(GL_FRAGMENT_SHADER, "base.frag");
 	AppShader.link();
+	AppShader.use();
 	render_scene_prog  = AppShader.GetProgram();
 	render_scene_uniforms.model_matrix = glGetUniformLocation(render_scene_prog, "model_matrix");
 	render_scene_uniforms.view_matrix = glGetUniformLocation(render_scene_prog, "view_matrix");
 	render_scene_uniforms.projection_matrix = glGetUniformLocation(render_scene_prog, "projection_matrix");
-	render_scene_uniforms.aspect = glGetUniformLocation(render_scene_prog, "aspect");
-	render_scene_uniforms.time = glGetUniformLocation(render_scene_prog, "time");
 
 	BlitShader.init();
 	BlitShader.attach(GL_VERTEX_SHADER, "blit.vert");
 	BlitShader.attach(GL_FRAGMENT_SHADER, "blit.frag");
 	BlitShader.link();
 	resolve_program = BlitShader.GetProgram();
+
 }
 
 
