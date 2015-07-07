@@ -23,25 +23,22 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="blit.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="blit.frag">
+    <ClInclude Include="vbm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="base.frag">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="base.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="base.frag">
+    <None Include="blit.frag">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="vbm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="triangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="blit.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -30,7 +30,11 @@ public:
 	/////////////////////////////Render/////////////////////////////
 	void Render(float current_width, float current_height, float aspect)
 	{
-		float t = glfwGetTime();
+		float t;
+
+		unsigned int current_time = GetTickCount();
+
+		t = (float)(current_time & 0xFFFFF) / (float)0x3FFF;
 
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
@@ -78,7 +82,7 @@ public:
 		glUseProgram(resolve_program);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-		CheckDebugLog();
+
 	}
 
 	void Shutdown()
@@ -134,7 +138,6 @@ void Triangle::init_shader()
 	AppShader.attach(GL_VERTEX_SHADER, "base.vert");
 	AppShader.attach(GL_FRAGMENT_SHADER, "base.frag");
 	AppShader.link();
-	AppShader.use();
 	render_scene_prog  = AppShader.GetProgram();
 	render_scene_uniforms.model_matrix = glGetUniformLocation(render_scene_prog, "model_matrix");
 	render_scene_uniforms.view_matrix = glGetUniformLocation(render_scene_prog, "view_matrix");
@@ -155,7 +158,6 @@ void Triangle::init_buffer()
 	glGenBuffers(1, &image_palette_buffer);
 	glBindBuffer(GL_TEXTURE_BUFFER, image_palette_buffer);
 	glBufferData(GL_TEXTURE_BUFFER, 256 * 4 * sizeof(float), NULL, GL_STATIC_DRAW);
-
 	glGenTextures(1, &image_palette_texture);
 	glBindTexture(GL_TEXTURE_BUFFER, image_palette_texture);
 	glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, image_palette_buffer);

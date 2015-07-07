@@ -67,14 +67,13 @@
     <ClCompile Include="vbm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="vbm.h" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="base.frag" />
     <None Include="base.vert" />
     <None Include="blit.frag" />
     <None Include="blit.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="triangle.h" />
-    <ClInclude Include="vbm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
