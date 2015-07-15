@@ -21,6 +21,7 @@ public:
 	/////////////////////////////Init/////////////////////////////
 	void Init()
 	{
+	   glEnable(GL_CULL_FACE);
        init_buffer();
 	   init_vertexArray();
 	   init_shader();
@@ -43,6 +44,8 @@ public:
 
 		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		//使用图元中断，条件编译
 #ifdef USE_PRIMITIVE_RESTART   
@@ -97,10 +100,10 @@ static const GLfloat positions[] = //顶点数据
 	-1.0f, -1.0f,  1.0f, 1.0f,
 	-1.0f,  1.0f, -1.0f, 1.0f,
 	-1.0f,  1.0f,  1.0f, 1.0f,
-	1.0f, -1.0f, -1.0f, 1.0f,
-	1.0f, -1.0f,  1.0f, 1.0f,
-	1.0f,  1.0f, -1.0f, 1.0f,
-	1.0f,  1.0f,  1.0f, 1.0f
+	 1.0f, -1.0f, -1.0f, 1.0f,
+	 1.0f, -1.0f,  1.0f, 1.0f,
+	 1.0f,  1.0f, -1.0f, 1.0f,
+	 1.0f,  1.0f,  1.0f, 1.0f
 };
 
 //颜色数据
@@ -147,9 +150,13 @@ void Triangle::init_vertexArray()
 	glGenVertexArrays(1, &VAO);  
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)sizeof(positions));
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glBindVertexArray(0);
 }
 
 #endif
