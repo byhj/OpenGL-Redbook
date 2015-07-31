@@ -1,39 +1,11 @@
-#include <gl/glew.h>
-#include <glm/glm.hpp>
+#include "RenderSystem.h"
+#include <memory>
 
-#include "ogl/oglApp.h"
-
-#include "triangle.h"
-
-class OGLRenderSystem : public byhj::Application
+int main(int argc, const char **argv)
 {
-public:
-	OGLRenderSystem() {}
-	~OGLRenderSystem() {}
+	auto app = std::make_shared<byhj::RenderSystem>();
 
-	void v_InitInfo()
-	{
-		windowInfo.title += "Triangle";
-	}
-	void v_Init()
-	{
-		triangle.Init();
-	}
-	void v_Render()
-	{
+	app->Run(app);
 
-		static const glm::vec4 bgColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
-
-		triangle.Render(GetWidth(), GetHeight());
-	}
-	void v_Shutdown()
-	{
-		triangle.Shutdown();
-	}
-
-private:
-	Triangle triangle;
-};
-
-CALL_MAIN(OGLRenderSystem);
+	return 0;
+}

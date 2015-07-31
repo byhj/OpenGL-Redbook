@@ -1,24 +1,23 @@
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#ifndef Rectangle_H
+#define Rectangle_H
 
 #include "ogl/oglShader.h"
 #include "ogl/oglUtility.h"
-#include "ogl/vbm.h"
 
 namespace byhj
 {
 
-class Triangle
+class Rectangle
 {
 
 public:
-	Triangle()  {}
-	~Triangle() {}
+	Rectangle()  {}
+	~Rectangle() {}
 
 public:
 				
 	void Init()		;
-	void Render(int w, int h);
+	void Render()	;
 	void Shutdown()	;
 
 
@@ -27,17 +26,19 @@ private:
 	void init_buffer();
 	void init_vertexArray();
 
+
 private:
 
 	GLuint vao = byhj::OGL_VALUE;
 	GLuint vbo = byhj::OGL_VALUE;
 	GLuint program = byhj::OGL_VALUE;
-	byhj::Shader ViewportShader = { "Triangle Shader" };
+	byhj::Shader AppShader  = { "Rectangle Shader" };
+	byhj::Shader CompShader = { "Compute Shader" };;
+	GLuint  output_image;
+	// Member variables
+	GLuint  compute_prog;
+	GLuint  render_prog;
 
-	VBObject object;
-
-	GLint model_matrix_pos;
-	GLint projection_matrix_pos;
 };
 
 

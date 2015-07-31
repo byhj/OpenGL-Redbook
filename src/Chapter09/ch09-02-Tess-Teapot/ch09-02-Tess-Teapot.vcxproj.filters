@@ -32,9 +32,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="triangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
