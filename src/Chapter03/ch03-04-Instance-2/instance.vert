@@ -3,6 +3,8 @@
 layout (location = 0) in vec4 Position;
 layout (location = 1) in vec3 Normal;
 layout (location = 2) in vec4 color;
+
+//mat4 occupy four vertex Attrib
 layout (location = 3) in mat4 model;
 
 uniform mat4 view;

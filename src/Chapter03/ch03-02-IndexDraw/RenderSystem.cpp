@@ -6,7 +6,7 @@ namespace byhj
 
 void RenderSystem::v_InitInfo()
 {
-	windowInfo.title += "ch01-01-Triangle";
+	windowInfo.title += "ch03-02-IndexDraw";
 }
 
 void RenderSystem::v_Init()

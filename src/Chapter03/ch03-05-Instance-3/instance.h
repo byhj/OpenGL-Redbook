@@ -1,176 +1,54 @@
+
+
+
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <iostream>
-
-#include "ogl/vbm.h"
 #include "ogl/oglShader.h"
-#include "ogl/glDebug.h"
+#include "ogl/oglUtility.h"
+#include "ogl/vbm.h"
 
-const int  INSTANCE_COUNT = 200 ; 
-
-class Instance
+namespace byhj
 {
 
-public:
-	Instance(): InstanceShader("Instance Shader") {}
-	~Instance() {}
-
-public:
-
-	/////////////////////////////Init/////////////////////////////
-	void Init()
+	class Instance
 	{
-		// Setup
-	   glEnable(GL_CULL_FACE);
-	   glEnable(GL_DEPTH_TEST); 
-	   glDepthFunc(GL_LEQUAL);
 
-       init_buffer();
-	   init_shader();
-	   init_vertexArray();
+	public:
+		Instance()  {}
+		~Instance() {}
 
+	public:
 
-	}
-
-	/////////////////////////////Render/////////////////////////////
-	void Render(float aspect)
-	{
-		glUseProgram(program);
-		object.BindVertexArray();
-
-		//We change view by click the mosue
-		float t = float(GetTickCount() & 0x3FFFF) / float(0x3FFFF);
-
-		static float q = 0.0f;
-		static const glm::vec3 X(1.0f, 0.0f, 0.0f);
-		static const glm::vec3 Y(0.0f, 1.0f, 0.0f);
-		static const glm::vec3 Z(0.0f, 0.0f, 1.0f);
-
-		// Set model matrices for each instance
-		glm::mat4 matrices[INSTANCE_COUNT];
-
-		for (int n = 0; n < INSTANCE_COUNT; n++) 
-		{
-			float a = 50.0f * float(n) / 4.0f;
-			float b = 50.0f * float(n) / 5.0f;
-			float c = 50.0f * float(n) / 6.0f;
-
-			matrices[n] = glm::rotate(glm::mat4(1.0), a + t * 360.0f, glm::vec3(1.0f, 0.0f, 0.0f)) *
-				glm::rotate(glm::mat4(1.0), b + t * 360.0f, glm::vec3(0.0f, 1.0f, 0.0f)) *
-				glm::rotate(glm::mat4(1.0), c + t * 360.0f, glm::vec3(0.0f, 0.0f, 1.0f)) *
-				glm::translate(glm::mat4(1.0), glm::vec3(10.0f + a, 40.0f + b, 50.0f + c) );
-		}
-
-		glBindBuffer(GL_TEXTURE_BUFFER, model_tbo);
-		glBufferData(GL_TEXTURE_BUFFER, sizeof(matrices), matrices, GL_DYNAMIC_DRAW);
-		glBindBuffer(GL_TEXTURE_BUFFER, 0);
-
-		glm::mat4 projection_matrix(glm::frustum(-1.0f, 1.0f, -aspect, aspect, 1.0f, 5000.0f) );           
-		glUniformMatrix4fv(proj_loc, 1, GL_FALSE, glm::value_ptr(projection_matrix));
-
-		glm::mat4 view_matrix(glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, -1500.0f)) 
-			* glm::rotate(glm::mat4(1.0), t * 360.0f * 2.0f, glm::vec3(0.0f, 1.0f, 0.0f)) );
-		glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(view_matrix));
-
-		object.Render(0, INSTANCE_COUNT);	
-	}
-
-	void Shutdown()
-	{
-		glDeleteProgram(program);
-	}
-
-private:
-
-	void init_buffer();
-	void init_vertexArray();
-	void init_shader();
-
-private:
-
-	GLuint vao[2], color_tbo, model_tbo;
-	GLint  proj_loc, view_loc;
-	GLuint color_tbo_loc,  model_tbo_loc;
-	GLuint color_texture, model_texture;
-
-	GLuint program;
-	VBObject object;
-	OGLShader InstanceShader;
-};
+		void Init();
+		void Render(GLfloat aspect);
+		void Shutdown();
 
 
-void Instance::init_buffer()
-{
-	object.LoadFromVBM("../../../media/objects/armadillo_low.vbm", 0, 1, 2);
-	object.BindVertexArray();
+	private:
+		void init_shader();
+		void init_buffer();
+		void init_vertexArray();
 
-	glm::vec4 colors[INSTANCE_COUNT];
-	for (int n = 0; n < INSTANCE_COUNT; n++) 
-	{
-		float a = float(n) / 4.0f;
-		float b = float(n) / 5.0f;
-		float c = float(n) / 6.0f;
-		colors[n][0] = 0.5f * (sinf(a + 1.0f) + 1.0f);
-		colors[n][1] = 0.5f * (sinf(b + 2.0f) + 1.0f);
-		colors[n][2] = 0.5f * (sinf(c + 3.0f) + 1.0f);
-		colors[n][3] = 1.0f;
-	}
+	private:
 
-	//Notice the set color_tbo to gl_texture_buffer layer 0, your should use texture to change it
-	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1, &color_texture);
-	glBindTexture(GL_TEXTURE_BUFFER, color_texture);
 
-	glGenBuffers(1, &color_tbo);
-	glBindBuffer(GL_TEXTURE_BUFFER, color_tbo);
-	glBufferData(GL_TEXTURE_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-	glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, color_tbo);
+	    GLuint vao[2], color_tbo, model_tbo;
+	    GLint  proj_loc, view_loc;
+	    GLuint color_tbo_loc,  model_tbo_loc;
+	    GLuint color_texture, model_texture;
+	    
+	    GLuint program = byhj::OGL_VALUE;
+	    byhj::Shader InstanceShader ={ "Instance Shader" };
+	    
+	    VBObject m_Armadillo;
+	};
 
-	// Now do the same thing with a TBO for the model matrices. The buffer object
-	// (model_matrix_buffer) has been created and sized to store one mat4 per-
-	// instance.
 
-	glActiveTexture(GL_TEXTURE1);
-	glGenTextures(1, &model_texture);
-	glBindTexture(GL_TEXTURE_BUFFER, model_texture);
-
-	glGenBuffers(1, &model_tbo);
-	glBindBuffer(GL_TEXTURE_BUFFER, model_tbo);
-	glBufferData(GL_TEXTURE_BUFFER, INSTANCE_COUNT * sizeof(glm::mat4), NULL, GL_DYNAMIC_DRAW);
-	glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, model_tbo);
 }
-
-void Instance::init_vertexArray()
-{
-}
-
-
-void Instance::init_shader()
-{
-	InstanceShader.init();
-	InstanceShader.attach(GL_VERTEX_SHADER, "instance.vert");
-	InstanceShader.attach(GL_FRAGMENT_SHADER, "instance.frag");
-	InstanceShader.link();
-	program = InstanceShader.GetProgram();
-
-	//uniform Index
-	view_loc = glGetUniformLocation(program, "view");
-	proj_loc= glGetUniformLocation(program, "proj");
-
-	//Vertex Attrib Array index
-	color_tbo_loc = glGetUniformLocation(program, "color_tbo");
-	model_tbo_loc = glGetUniformLocation(program, "model_tbo");
-
-	glUseProgram(program);
-	glUniform1i(color_tbo_loc, 0); 
-	glUniform1i(model_tbo_loc, 1);
-}
-
 #endif
+
+
 
 
 

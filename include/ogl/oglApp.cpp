@@ -15,9 +15,8 @@ void byhj::Application::Run(std::shared_ptr<byhj::Application> the_app)
 
 	v_InitInfo();
 
-#ifdef _DEBUG
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
-#endif
+
 	GLFWwindow *Triangle = glfwCreateWindow(windowInfo.Width, windowInfo.Height,
 		                                  windowInfo.title.c_str(), nullptr, nullptr);
 	glfwSetWindowPos(Triangle, windowInfo.posX, windowInfo.posY);

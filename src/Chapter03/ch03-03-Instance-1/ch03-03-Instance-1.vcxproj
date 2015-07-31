@@ -63,8 +63,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglDebug.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch03-03-Instance-1.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="instance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="instance.frag" />
@@ -72,8 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglDebug.h" />
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="..\..\..\include\ogl\vbm.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="instance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

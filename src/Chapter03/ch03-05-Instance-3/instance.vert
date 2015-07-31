@@ -34,7 +34,7 @@ void main(void)
     mat4 mv = view * model;
 	mat4 mvp = proj * mv;
 
-	// Use gl_InstanceID to obtain the instance color from the color TBO
+	//Every Instance use a different color
     vec4 color = texelFetch(color_tbo, gl_InstanceID);
 
 	vs_out.normal = normalize( mat3(mv) * Normal);

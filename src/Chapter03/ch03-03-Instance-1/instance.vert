@@ -25,7 +25,7 @@ void main(void)
 	for (int n = 0; n != 4; ++n)
        m += (model[n] * weights[n]);
 	
-	vs_out.normal = normalize( mat3(m) * Normal);
+	vs_out.normal = normalize( mat3(m)  * Normal );
 	vs_out.color = color;
 
 	gl_Position = proj * (m * Position);

@@ -21,15 +21,16 @@ void Triangle::Render()
 	glUseProgram(program);
 	glBindVertexArray(vao);
 
-	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0, 0.0, -5.0));
-	glm::mat4 view  = glm::lookAt(glm::vec3(0.0, 0.0, 5.0), glm::vec3(0.0, 0.0, -4.0), glm::vec3(0.0, 1.0, 0.0));
-	glm::mat4 proj  = glm::perspective(45.0f, 1.0f, 1.0f, 1000.0f);
-	glm::mat4 projView   = proj * view;
-	glm::mat4 mvp = glm::mat4(1.0f);
+	static glm::mat4 model = glm::mat4(1.0f); 
+	static glm::mat4 view  = glm::lookAt(glm::vec3(0.0, 0.0, 5.0), glm::vec3(0.0, 0.0, -4.0), glm::vec3(0.0, 1.0, 0.0));
+	static glm::mat4 proj  = glm::perspective(45.0f, 1.0f, 1.0f, 1000.0f);
+	static glm::mat4 projView   = proj * view;
+	static glm::mat4 mvp = glm::mat4(1.0f);
 
 	////////////////Update the model matrix when draw the every triangle///////////////
 
 	// DrawArrays
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0, 0.0, -5.0));
 	mvp = projView * model;
 	glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, glm::value_ptr(mvp));
 	glDrawArrays(GL_TRIANGLES, 0, 3);
