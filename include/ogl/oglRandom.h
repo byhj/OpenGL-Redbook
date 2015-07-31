@@ -4,6 +4,9 @@
 #include <random>
 #include <glm/glm.hpp>
 
+namespace byhj
+{
+
 class OGLRandom
 {
 
@@ -29,4 +32,7 @@ private:
 	std::default_random_engine eng;
 	glm::vec4 rColor;
 };
+
+
+}
 #endif

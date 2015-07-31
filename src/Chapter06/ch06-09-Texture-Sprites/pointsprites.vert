@@ -8,6 +8,6 @@ uniform mat4 proj;
 void main(void)
 {
     vec4 pos = (proj * model) * position;
-    gl_PointSize = (1.0 - pos.z / pos.w) * 64.0;
+    gl_PointSize = (1.0f - pos.z / pos.w) * 64.0f;
     gl_Position = pos;
 }

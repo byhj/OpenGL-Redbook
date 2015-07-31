@@ -63,16 +63,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\..\..\media\textures\sprite.tga" />
     <None Include="pointsprites.frag" />
     <None Include="pointsprites.vert" />
     <None Include="pointsprites2.frag" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch06-09-Texture-Sprites.cpp" />
+    <ClCompile Include="rectangle.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="texture.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
+    <ClInclude Include="..\..\..\include\ogl\vbm.h" />
+    <ClInclude Include="rectangle.h" />
+    <ClInclude Include="RenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

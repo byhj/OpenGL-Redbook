@@ -6,5 +6,5 @@ out vec4 fragColor;
 
 void main(void)
 {
-    fragColor =  texture(sprite_texture, vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y));
+    fragColor =  texture(sprite_texture, vec2(gl_PointCoord.x, 1.0f - gl_PointCoord.y));
 }

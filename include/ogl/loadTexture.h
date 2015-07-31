@@ -42,7 +42,7 @@ GLuint loadTexture(const  char* theFileName)
 		std::cout << "Fail to load the texture!" << std::endl;
  
  	ilDeleteImages(1, &imageID); // Because we have already copied image data into texture data we can release memory used by image.
-	std::cout << "Texture creation successful." << std::endl;
+	std::cout << "Texture Load successful " << theFileName << std::endl;
 	return textureID; // 返回加载纹理索引
 }
 
