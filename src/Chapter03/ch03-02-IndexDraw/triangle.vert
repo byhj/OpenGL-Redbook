@@ -6,10 +6,9 @@
  out vec4 color;
 
  uniform mat4 mvp;
- uniform mat4 model;
 
  void main()
  {
-    gl_Position = (mvp * model) * vPosition;
+    gl_Position = mvp *  vPosition;
 	color = vColor;
 }

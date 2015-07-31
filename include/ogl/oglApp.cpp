@@ -29,7 +29,7 @@ void byhj::Application::Run(std::shared_ptr<byhj::Application> the_app)
 	glfwSetScrollCallback(Triangle, glfw_scroll);
 
 	// GLFW Options
-	glfwSetInputMode(Triangle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(Triangle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (Triangle == NULL)
 	{
