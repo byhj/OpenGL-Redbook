@@ -63,16 +63,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch07-01-Phong-Light.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="Torus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="light.frag" />
     <None Include="light.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="..\..\..\include\ogl\vbm.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="Torus.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

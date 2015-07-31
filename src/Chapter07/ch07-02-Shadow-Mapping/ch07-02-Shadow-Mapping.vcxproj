@@ -63,6 +63,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch07-02-Shadow-Mapping.cpp" />
   </ItemGroup>
@@ -73,6 +76,9 @@
     <None Include="shadow.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
+    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="..\..\..\include\ogl\vbm.h" />
     <ClInclude Include="light.h" />
   </ItemGroup>
