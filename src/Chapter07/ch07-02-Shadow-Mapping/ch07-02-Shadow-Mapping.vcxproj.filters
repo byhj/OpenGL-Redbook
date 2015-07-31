@@ -32,9 +32,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\oglApp.h">
       <Filter>Framework</Filter>
     </ClInclude>
@@ -46,6 +43,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\ogl\vbm.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +66,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp">
       <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangle.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

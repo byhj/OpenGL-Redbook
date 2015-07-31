@@ -68,6 +68,8 @@
     <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch07-02-Shadow-Mapping.cpp" />
+    <ClCompile Include="rectangle.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="base.frag" />
@@ -80,7 +82,8 @@
     <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
     <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
     <ClInclude Include="..\..\..\include\ogl\vbm.h" />
-    <ClInclude Include="light.h" />
+    <ClInclude Include="rectangle.h" />
+    <ClInclude Include="RenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
