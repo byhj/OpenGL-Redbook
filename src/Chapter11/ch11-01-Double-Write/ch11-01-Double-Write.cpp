@@ -141,6 +141,7 @@ void ImageApp::init_buffer()
 	glGenBuffers(1, &image_palette_buffer);
 	glBindBuffer(GL_TEXTURE_BUFFER, image_palette_buffer);
 	glBufferData(GL_TEXTURE_BUFFER, 256 * 4 * sizeof(float), NULL, GL_STATIC_DRAW);
+
 	glGenTextures(1, &image_palette_texture);
 	glBindTexture(GL_TEXTURE_BUFFER, image_palette_texture);
 	glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, image_palette_buffer);

@@ -186,7 +186,7 @@ void ImageApp::init_buffer()
 
 	glClearDepth(1.0f);
 
-	object.LoadFromVBM("unit_pipe.vbm", 0, 1, 2);
+	object.LoadFromVBM("../../../media/objects/unit_pipe.vbm", 0, 1, 2);
 }
 
 void ImageApp::init_vertexArray()
