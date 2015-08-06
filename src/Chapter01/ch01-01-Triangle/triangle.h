@@ -34,7 +34,6 @@ private:
 	byhj::Shader TriangleShader = { "Triangle Shader" };
 
 	GLuint m_VertexCount = 0;
-	GLuint m_IndexCount  = 0 ;
 };
 
 
