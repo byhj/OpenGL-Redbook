@@ -1,8 +1,8 @@
 #ifndef Rectangle_H
 #define Rectangle_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 namespace byhj
 {
@@ -38,7 +38,7 @@ private:
 	GLuint  Outer_loc;  // Outer tessellation paramter
 	GLfloat  Inner = 1.0f;
 	GLfloat  Outer = 1.0f;
-	byhj::Shader RectangleShader = { "Rectangle Shader" };
+	ogl::Shader RectangleShader = { "Rectangle Shader" };
 };
 
 

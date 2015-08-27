@@ -1,8 +1,8 @@
 #ifndef Rectangle_H
 #define Rectangle_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/vbm.h"
 namespace byhj
 {
@@ -28,7 +28,7 @@ private:
 
 private:
 
-	byhj::Shader baseShader, FbShader;
+	ogl::Shader baseShader, FbShader;
 
 	GLuint sort_prog;
 	GLuint render_prog;

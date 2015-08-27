@@ -1,8 +1,8 @@
 #ifndef Rectangle_H
 #define Rectangle_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/vbm.h"
 
 namespace byhj
@@ -36,8 +36,8 @@ private:
 	GLint current_height;
 	VBObject g_object;
 
-	byhj::Shader ObjectShader;
-	byhj::Shader ShadowShader;
+	ogl::Shader ObjectShader;
+	ogl::Shader ShadowShader;
 	GLuint ground_vao, ground_vbo;
 	GLuint base_prog;
 

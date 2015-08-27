@@ -1,8 +1,8 @@
 #ifndef Rectangle_H
 #define Rectangle_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 
 namespace byhj
@@ -33,7 +33,7 @@ private:
 	GLuint vao = byhj::OGL_VALUE;
 	GLuint vbo = byhj::OGL_VALUE;
 	GLuint program = byhj::OGL_VALUE;
-	byhj::Shader RectangleShader = { "Rectangle Shader" };
+	ogl::Shader RectangleShader = { "Rectangle Shader" };
 	GLuint tex, tex_loc;
 	GLuint tc_rotate_loc, randomColor_loc;
 	GLuint m_VertexCount = 0;

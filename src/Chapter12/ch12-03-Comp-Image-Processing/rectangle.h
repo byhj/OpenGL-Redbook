@@ -1,8 +1,8 @@
 #ifndef Rectangle_H
 #define Rectangle_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 namespace byhj
 {
@@ -32,8 +32,8 @@ private:
 	GLuint vao = byhj::OGL_VALUE;
 	GLuint vbo = byhj::OGL_VALUE;
 	GLuint program = byhj::OGL_VALUE;
-	byhj::Shader AppShader  = { "Rectangle Shader" };
-	byhj::Shader CompShader = { "Compute Shader" };;
+	ogl::Shader AppShader  = { "Rectangle Shader" };
+	ogl::Shader CompShader = { "Compute Shader" };;
 	GLuint  render_vao;
 	GLuint  render_vbo;
 	// Texture to process

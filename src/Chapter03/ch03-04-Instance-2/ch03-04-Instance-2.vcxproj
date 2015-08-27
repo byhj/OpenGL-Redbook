@@ -67,20 +67,20 @@
     <None Include="instance.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
-    <ClCompile Include="..\..\..\include\ogl\oglDebug.cpp" />
-    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
-    <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\App.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Debug.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Shader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Utility.cpp" />
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch03-04-Instance-2.cpp" />
     <ClCompile Include="instance.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglDebug.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
+    <ClInclude Include="..\..\..\include\ogl\App.h" />
+    <ClInclude Include="..\..\..\include\ogl\Debug.h" />
+    <ClInclude Include="..\..\..\include\ogl\Shader.h" />
+    <ClInclude Include="..\..\..\include\ogl\Utility.h" />
     <ClInclude Include="..\..\..\include\ogl\vbm.h" />
     <ClInclude Include="instance.h" />
     <ClInclude Include="RenderSystem.h" />

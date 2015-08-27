@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
-#include "ogl/oglShader.h"
+#include "ogl/Shader.h"
 #include "ogl/loadTexture.h"
 #include "ogl/oglRandom.h"
 

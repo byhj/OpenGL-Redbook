@@ -1,8 +1,14 @@
-#include "oglApp.h"
+#include "App.h"
 
-std::shared_ptr<byhj::Application> byhj::Application::app;
+namespace byhj
+{
 
-void byhj::Application::Run(std::shared_ptr<byhj::Application> the_app)
+namespace ogl
+{
+
+std::shared_ptr<App> App::app;
+
+void App::Run(std::shared_ptr<App> the_app)
 {	
     app = the_app;
 
@@ -83,19 +89,21 @@ void byhj::Application::Run(std::shared_ptr<byhj::Application> the_app)
 	glfwTerminate();
 }
 
-float byhj::Application::GetAspect()
+float App::GetAspect()
 {
 	return static_cast<float>(ScreenWidth) / static_cast<float>(ScreenHeight);
 }
 
-int byhj::Application::GetScreenWidth()
+int App::GetScreenWidth()
 {
 	return ScreenWidth;
 }
 
-int byhj::Application::GetScreenHeight()
+int App::GetScreenHeight()
 {
 	return ScreenHeight;
 }
 
+}
 
+}

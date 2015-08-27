@@ -1,5 +1,5 @@
 #include "RenderSystem.h"
-#include "ogl/oglDebug.h"
+#include "ogl/Debug.h"
 namespace byhj
 {
 
@@ -28,9 +28,9 @@ void RenderSystem::v_Render()
 	static const GLfloat aspect = GetAspect();
 
 	m_Instance.Render(aspect);
-	byhj::OGLDebug de;
-	de.Init();
-	de.Debug();
+	ogl::Debug de;
+	de.init();
+	de.debug();
 
 }
 

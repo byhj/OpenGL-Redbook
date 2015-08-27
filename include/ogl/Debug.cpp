@@ -1,17 +1,19 @@
-#include "oglDebug.h"
+#include "Debug.h"
 
 #include "glDebug.h"
 
 namespace byhj
 {
 
+namespace ogl
+{
 
-void OGLDebug::Init()
+void Debug::init()
 {
 
 }
 
-void OGLDebug::Debug()
+void Debug::debug()
 {
 	static bool Check = true;
 
@@ -20,6 +22,8 @@ void OGLDebug::Debug()
 		CheckDebugLog();
 		Check = false;
 	}
+}
+
 }
 
 }

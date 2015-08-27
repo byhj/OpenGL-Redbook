@@ -8,7 +8,7 @@
 
 #include <GLFW//glfw3.h>
 
-#include "ogl/oglShader.h"
+#include "ogl/Shader.h"
 #include "ogl/loadTexture.h"
 #include "ogl/vmath.h"
 #include "ogl/vbm.h"

@@ -1,8 +1,8 @@
 #ifndef Rectangle_H
 #define Rectangle_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/vbm.h"
 
 namespace byhj
@@ -36,8 +36,8 @@ private:
 	GLuint tex, tex_loc;
 	GLint skybox_rotate_loc, proj_loc, mv_loc;
 	VBObject object;
-	byhj::Shader skyboxShader;
-	byhj::Shader objectShader;
+	ogl::Shader skyboxShader;
+	ogl::Shader objectShader;
 };
 
 

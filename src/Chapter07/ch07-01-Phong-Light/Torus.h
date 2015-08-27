@@ -1,8 +1,8 @@
 #ifndef Torus_H
 #define Torus_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/vbm.h"
 
 namespace byhj
@@ -32,7 +32,7 @@ private:
 	GLuint vao = byhj::OGL_VALUE;
 	GLuint vbo = byhj::OGL_VALUE;
 	GLuint program = byhj::OGL_VALUE;
-	byhj::Shader ObjectShader ={ "Torus Shader" };
+	ogl::Shader ObjectShader ={ "Torus Shader" };
 	VBObject object;
 
 	struct UniformLoc

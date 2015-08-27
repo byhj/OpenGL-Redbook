@@ -1,8 +1,8 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 namespace byhj
 {
@@ -28,13 +28,13 @@ namespace byhj
 
 	private:
 
-		GLuint vao = byhj::OGL_VALUE;
-		GLuint ibo = byhj::OGL_VALUE;
-		GLuint vbo = byhj::OGL_VALUE;
+		GLuint vao     = byhj::OGL_VALUE;
+		GLuint ibo     = byhj::OGL_VALUE;
+		GLuint vbo     = byhj::OGL_VALUE;
 		GLuint program = byhj::OGL_VALUE;
 		GLuint mvp_loc = byhj::OGL_VALUE;
 
-		byhj::Shader TriangleShader ={ "Triangle Shader" };
+		ogl::Shader TriangleShader ={ "Triangle Shader" };
 
 		GLuint m_VertexCount = 0;
 		GLuint m_IndexCount  = 0;

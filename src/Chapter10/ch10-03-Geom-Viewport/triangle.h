@@ -1,8 +1,8 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/vbm.h"
 
 namespace byhj
@@ -32,7 +32,7 @@ private:
 	GLuint vao = byhj::OGL_VALUE;
 	GLuint vbo = byhj::OGL_VALUE;
 	GLuint program = byhj::OGL_VALUE;
-	byhj::Shader ViewportShader = { "Triangle Shader" };
+	ogl::Shader ViewportShader = { "Triangle Shader" };
 
 	VBObject object;
 

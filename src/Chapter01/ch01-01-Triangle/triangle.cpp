@@ -17,8 +17,12 @@ void Triangle::Render()
 {
 	glUseProgram(program);
 	glBindVertexArray(vao);
+
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
 	glDrawArrays(GL_TRIANGLES, 0, m_VertexCount);
+
+	glUseProgram(0);
+	glBindVertexArray(0);
 }
 
 void Triangle::Shutdown()

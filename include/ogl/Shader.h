@@ -1,5 +1,5 @@
-#ifndef OGLShader_H
-#define OGLShader_H
+#ifndef Shader_H
+#define Shader_H
 
 #include <GL/glew.h>
 #include <iostream>
@@ -13,6 +13,9 @@
 #endif
 
 namespace byhj
+{
+
+namespace ogl
 {
 
 class Shader
@@ -42,6 +45,8 @@ private:
 	std::string m_Name;   //Shaderclass name
 };
 
+
+}
 
 }
 #endif

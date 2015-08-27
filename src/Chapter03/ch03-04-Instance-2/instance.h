@@ -3,8 +3,8 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 #include "ogl/vbm.h"
 
 namespace byhj
@@ -35,7 +35,7 @@ namespace byhj
 		GLint  proj_loc, view_loc;
 		GLuint Position_loc, Normal_loc, color_loc, model_loc;
 		GLuint program = byhj::OGL_VALUE;
-		byhj::Shader InstanceShader ={ "Instance Shader" };
+		ogl::Shader InstanceShader ={ "Instance Shader" };
 
 		VBObject m_Armadillo;
 	};

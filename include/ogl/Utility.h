@@ -1,5 +1,5 @@
-#ifndef OGLUTILITY_H
-#define OGLUTILITY_H
+#ifndef UTILITY_H
+#define UTILITY_H
 
 #include <gl/glew.h>
 #include <glm/glm.hpp>

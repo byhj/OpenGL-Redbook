@@ -1,8 +1,8 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "ogl/oglShader.h"
-#include "ogl/oglUtility.h"
+#include "ogl/Shader.h"
+#include "ogl/Utility.h"
 
 namespace byhj
 {
@@ -34,7 +34,7 @@ private:
 	GLuint vbo = byhj::OGL_VALUE;
 	GLuint ibo = byhj::OGL_VALUE;
 	GLuint program = byhj::OGL_VALUE;
-	byhj::Shader TriangleShader = { "Cube Shader" };
+	ogl::Shader TriangleShader = { "Cube Shader" };
 
 	GLuint m_VertexCount = 0;
 	GLuint m_IndexCount  = 0 ;

@@ -1,5 +1,5 @@
-#ifndef OGLAPP_H
-#define OGLAPP_H
+#ifndef APP_H
+#define APP_H
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -23,14 +23,18 @@ const int PosY = 100;
 
 namespace byhj {
 
-	class Application 
+namespace ogl
+{
+
+
+	class App 
 	{
 	public:
-		Application() {}
-		virtual ~Application() {}
+		App() {}
+		virtual ~App() {}
 
 	public:
-		void Run(std::shared_ptr<byhj::Application> the_app);
+		void Run(std::shared_ptr<App> the_app);
 
 		//Override
 		virtual void v_InitInfo() = 0;
@@ -53,7 +57,7 @@ namespace byhj {
 	protected:
 		struct WindowInfo
 		{
-			WindowInfo():title("Learn OpenGL:"), 
+			WindowInfo():title("OpenGL Redbook:"), 
 				        Width(ScreenWidth), 
 						Height(ScreenHeight),
 				        posX(PosX), 
@@ -70,7 +74,7 @@ namespace byhj {
 		int GetScreenHeight();
 
 	protected:
-	    static  std::shared_ptr<byhj::Application> app;
+	    static  std::shared_ptr<App> app;
 
 	    static void glfw_key(GLFWwindow * Triangle, int key, int scancode, int action, int mode) 
 	    {
@@ -86,6 +90,7 @@ namespace byhj {
 	    }
 	    
 	};  //class
+}
 
 }  //namespace 
 

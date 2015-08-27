@@ -64,9 +64,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\include\ogl\oglApp.cpp" />
-    <ClCompile Include="..\..\..\include\ogl\oglShader.cpp" />
-    <ClCompile Include="..\..\..\include\ogl\oglUtility.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\App.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Debug.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Shader.cpp" />
+    <ClCompile Include="..\..\..\include\ogl\Utility.cpp" />
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch06-06-Texture-Cube.cpp" />
     <ClCompile Include="rectangle.cpp" />
@@ -79,9 +80,10 @@
     <None Include="skybox.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\ogl\oglApp.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglShader.h" />
-    <ClInclude Include="..\..\..\include\ogl\oglUtility.h" />
+    <ClInclude Include="..\..\..\include\ogl\App.h" />
+    <ClInclude Include="..\..\..\include\ogl\Debug.h" />
+    <ClInclude Include="..\..\..\include\ogl\Shader.h" />
+    <ClInclude Include="..\..\..\include\ogl\Utility.h" />
     <ClInclude Include="..\..\..\include\ogl\vbm.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="RenderSystem.h" />
