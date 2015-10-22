@@ -69,6 +69,7 @@
     <ClCompile Include="..\..\..\include\ogl\Utility.cpp" />
     <ClCompile Include="..\..\..\include\ogl\vbm.cpp" />
     <ClCompile Include="ch07-01-Phong-Light.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Torus.cpp" />
   </ItemGroup>
