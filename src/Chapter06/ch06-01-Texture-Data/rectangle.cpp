@@ -97,38 +97,40 @@ static const GLubyte tex_data[] =  //棋盘黑白纹理
 
 void Rectangle::init_texture()
 {
-	/*
-	GLfloat test_tex[] =
-	{
-	1.0f, 0.0f, 0.0f,  //red
-	0.0f, 1.0f, 0.0f,  //green
-	0.0f, 0.0f, 1.0f,  //blue
-	1.0f, 0.0f, 1.0f,  //pink
-	};
+	
 
-	//内部颜色格式是显卡内格式，即要显示的颜色，在测试出传入rgb分量，显示时如果设置为GL_RG32F，则考虑RG分量
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RG32F, 2, 2);
 
-	外部颜色格式是数据传入表示的格式，即规定了数据怎么排列组成颜色分量
-	在test_tex中传入四个颜色值，每三个float组成一个片元的颜色值，对应rgb分量
-	glTexSubImage2D(GL_TEXTURE_2D,
-	0,
-	0, 0,
-	2, 2,
-	GL_RGB, GL_FLOAT,
-	test_tex);
-	*/
 	glGenTextures(1, &tex);
 	glBindTexture(GL_TEXTURE_2D, tex);
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, 8, 8);
+	
+	GLfloat test_tex[] =
+	{
+		1.0f, 0.0f, 0.0f,  //red
+		0.0f, 1.0f, 0.0f,  //green
+		0.0f, 0.0f, 1.0f,  //blue
+		1.0f, 0.0f, 1.0f,  //pink
+	};
 
+	//内部颜色格式是显卡内格式，即要显示的颜色，在测试出传入rgb分量，显示时如果设置为GL_RG32F，则考虑RG分量,外部格式中B分量被忽略
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RG32F, 2, 2);
+
+	//外部颜色格式是数据传入表示的格式，即规定了数据怎么排列组成颜色分量,由外部格式和数据类型决定
+	//在test_tex中传入四个颜色值，每三个float组成一个片元的颜色值，对应rgb分量, 
+	glTexSubImage2D(GL_TEXTURE_2D,
+		0,
+		0, 0,
+		2, 2,
+		GL_RGB, GL_FLOAT,
+		test_tex);
+	/*
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, 8, 8);
 	glTexSubImage2D(GL_TEXTURE_2D,
 		0,
 		0, 0,
 		8, 8,
 		GL_RGBA, GL_UNSIGNED_BYTE,
 		tex_data);
-
+		*/
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -136,6 +138,7 @@ void Rectangle::init_texture()
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+
 }
 
 }
